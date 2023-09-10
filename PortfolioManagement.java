@@ -2,12 +2,21 @@ import java.util.Scanner;
 
 class PortfolioBackend
 {
-    double equity_assets, debt_assets, gold_assets, real_estate_assets, EQUITY_STD, GOLD_STD, DEBT_STD, REAL_ESTATE_STD;
+    // equity assets are in INR
+    // equity std is in their respective units
+    // return is in percentage
+    double equity_assets, debt_assets, gold_assets, real_estate_assets, 
+    EQUITY_STD, GOLD_STD, DEBT_STD, REAL_ESTATE_STD, 
+    EQUITY_RETURN, GOLD_RETURN, DEBT_RETURN, REAL_ESTATE_RETURN;
     PortfolioBackend(){
         EQUITY_STD = 15.08;
         DEBT_STD = 0.94;
         GOLD_STD = 11.4;
         REAL_ESTATE_STD = 15.94;
+        EQUITY_RETURN = 12.03;
+        GOLD_RETURN = 15;
+        DEBT_RETURN = 7.52;
+        REAL_ESTATE_RETURN = 36.32;
         equity_assets = 0;
         debt_assets = 0;
         gold_assets = 0;
@@ -68,6 +77,26 @@ class PortfolioBackend
         }
     }
 
+    void overall_return()
+    {
+        double total = equity_assets + debt_assets + gold_assets + real_estate_assets;
+        if (total > 0)
+        {
+            double portfolio_overall_return = (
+                (equity_assets/total)*EQUITY_RETURN +
+                (debt_assets/total)*DEBT_RETURN +
+                (gold_assets/total)*GOLD_RETURN +
+                (real_estate_assets/total)*REAL_ESTATE_RETURN
+                );
+
+            System.out.println("Your overall Portfolio Return in % " + portfolio_overall_return);
+        }
+        else{
+            System.out.println("Please add your assets before accessing this option");
+        }
+
+    }
+
     void menu()
     {   
         System.out.println("");
@@ -76,6 +105,7 @@ class PortfolioBackend
         System.out.println("1. Add your assets in [Equity, Gold, Real Estate, Debt]");
         System.out.println("2. Calculate your Net Worth in INR");
         System.out.println("3. Calculate Risk Profile of your Portfolio in INR");
+        System.out.println("4. Calculate Overall Return of your Portfolio in %");
         System.out.println("");
     }
 
@@ -111,6 +141,11 @@ class PortfolioManagement
             {
                 current_object.portfolio_risk();
             }
+            else if (choice == 4)
+            {
+                current_object.overall_return();
+            }
+
         }
     }
 }
