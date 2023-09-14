@@ -8,6 +8,7 @@ class PortfolioBackend
     double equity_assets, debt_assets, gold_assets, real_estate_assets, 
     EQUITY_STD, GOLD_STD, DEBT_STD, REAL_ESTATE_STD, 
     EQUITY_RETURN, GOLD_RETURN, DEBT_RETURN, REAL_ESTATE_RETURN;
+    int DASH_CONSTANT;
     PortfolioBackend(){
         EQUITY_STD = 15.08;
         DEBT_STD = 0.94;
@@ -21,6 +22,7 @@ class PortfolioBackend
         debt_assets = 0;
         gold_assets = 0;
         real_estate_assets = 0;
+        DASH_CONSTANT = 70;
     }
 
     void add_assets()
@@ -97,16 +99,42 @@ class PortfolioBackend
 
     }
 
+    // The functions print_dash and dash_calculator are to increase uniformity of dashes and words on the screen
+    void print_dash(int times)
+    {
+        System.out.print(" ");
+        for (int line=0;line < times; line++)
+        {
+            System.out.print("-");
+        }
+        System.out.print(" ");
+
+    }
+
+    int dash_calculator(String text)
+    {
+        int text_length = text.length();
+        return DASH_CONSTANT - text_length;
+    }
+
     void menu()
     {   
-        System.out.println("");
-        System.out.println("Menu is available below: ");
-        System.out.println("0. Exit");
-        System.out.println("1. Add your assets in [Equity, Gold, Real Estate, Debt]");
-        System.out.println("2. Calculate your Net Worth in INR");
-        System.out.println("3. Calculate Risk Profile of your Portfolio in INR");
-        System.out.println("4. Calculate Overall Return of your Portfolio in %");
-        System.out.println("");
+        String array[] = {
+            "Menu here", "0. Exit", "1. Add your assets in [Equity, Gold, Real Estate, Debt]", 
+            "2. Calculate your Net Worth in INR", "3. Calculate Risk Profile of your Portfolio in INR",
+            "4. Calculate Overall Return of your Portfolio in %"
+            };
+        for (int ptr = 0;ptr < array.length; ptr++)
+        {
+            
+            print_dash(DASH_CONSTANT - 20);
+
+            System.out.print(array[ptr]);
+            
+            print_dash(dash_calculator(array[ptr]));
+
+            System.out.println("");
+        }
     }
 
 }
