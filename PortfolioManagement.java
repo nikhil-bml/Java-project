@@ -100,6 +100,56 @@ class PortfolioBackend
     }
 
     // The functions print_dash and dash_calculator are to increase uniformity of dashes and words on the screen
+
+    void menuStarPattern(int pos, int rows){
+
+        if(pos == 0){
+
+            for (int i = 1; i <= rows; i++) {
+
+            if(i % 2 ==0 || i%3 == 0){
+                continue;        
+            }
+
+
+            System.out.print(" ");
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print(" ");
+            }
+
+        
+            for (int k = 1; k <= 2 * i - 1; k++) {
+                System.out.print("-");
+            }
+
+            System.out.println();
+        }
+
+        }else if( pos == 1){
+
+            
+            for (int i = rows; i >= 1; i--) {
+
+            if(i % 2 ==0 || i%3 == 0){
+                continue;        
+            }
+
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print(" ");
+            }
+
+            for (int k = 1; k <= 2 * i - 1; k++) {
+                System.out.print("-");
+            }
+
+            System.out.println();
+        }
+        
+
+        }
+
+    }
+
     void print_dash(int times)
     {
         System.out.print(" ");
@@ -117,6 +167,15 @@ class PortfolioBackend
         return DASH_CONSTANT - text_length;
     }
 
+
+    static void clearScreen() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println(); // Print empty lines
+        }
+    }
+
+
+
     void menu()
     {   
         String array[] = {
@@ -124,9 +183,11 @@ class PortfolioBackend
             "2. Calculate your Net Worth in INR", "3. Calculate Risk Profile of your Portfolio in INR",
             "4. Calculate Overall Return of your Portfolio in %"
             };
+
+        menuStarPattern(0, 62);
+
         for (int ptr = 0;ptr < array.length; ptr++)
-        {
-            
+        {   
             print_dash(DASH_CONSTANT - 20);
 
             System.out.print(array[ptr]);
@@ -135,6 +196,9 @@ class PortfolioBackend
 
             System.out.println("");
         }
+
+        menuStarPattern(1, 62);
+
     }
 
 }
@@ -147,8 +211,13 @@ class PortfolioManagement
         int choice;
         PortfolioBackend current_object = new PortfolioBackend();
         Scanner cin = new Scanner(System.in);
+        Scanner random = new Scanner(System.in);
+
         while (true)
         {
+            
+            PortfolioBackend.clearScreen();
+
             current_object.menu();
             System.out.print("Enter your choice: ");
             choice = cin.nextInt();
@@ -160,18 +229,27 @@ class PortfolioManagement
             else if(choice == 1)
             {
                 current_object.add_assets();
+                System.out.println("Press Enter: ");
+                random.nextLine();
             }
             else if (choice == 2)
             {
                 current_object.calculate_networth();
+                System.out.println("Press Enter: ");
+                random.nextLine();
+
             }
             else if (choice == 3)
             {
                 current_object.portfolio_risk();
+                System.out.println("Press Enter: ");
+                random.nextLine();
             }
             else if (choice == 4)
             {
                 current_object.overall_return();
+                System.out.println("Press Enter: ");
+                random.nextLine();
             }
 
         }
