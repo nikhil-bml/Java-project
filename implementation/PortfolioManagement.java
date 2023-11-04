@@ -184,20 +184,20 @@ class PortfolioBackend
             "4. Calculate Overall Return of your Portfolio in %"
             };
 
-        menuStarPattern(0, 62);
+        // menuStarPattern(0, 62);
 
         for (int ptr = 0;ptr < array.length; ptr++)
         {   
-            print_dash(DASH_CONSTANT - 20);
+            // print_dash(DASH_CONSTANT - 20);
 
             System.out.print(array[ptr]);
             
-            print_dash(dash_calculator(array[ptr]));
+            // print_dash(dash_calculator(array[ptr]));
 
             System.out.println("");
         }
 
-        menuStarPattern(1, 62);
+        // menuStarPattern(1, 62);
 
     }
 
