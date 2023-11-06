@@ -1,6 +1,6 @@
 package logic;
 import reader.ReadCsv;
-import java.util.Arrays;
+
 public class Logic
 {   
     int owned_equity_assets[], owned_equity_assets_quantity[];
@@ -15,7 +15,7 @@ public class Logic
         all_real_estate_assets = new ReadCsv("reader/data/real_estate.csv");
     }
 
-    public void set_assets(int owned_assets[], int owned_assets_quantity[], String asset_type )
+    public void set_assets(int owned_assets[], int owned_assets_quantity[], String asset_type)
     {
         if (asset_type.equals("equity"))
         {
@@ -36,13 +36,7 @@ public class Logic
 
     public double get_asset_info(String asset_type, String info)
     {
-        String choices[] = {"risk","worth","return"};
-
-        if (!Arrays.asList(choices).contains(info)){
-            System.out.println(info + " Choice is not applicable");
-            return -1;
-        }
-
+        
         int owned_assets[], owned_assets_quantity[];
         double asset_value = 0;
         int asset = 0, quantity = 0;
@@ -85,7 +79,7 @@ public class Logic
         {       
             asset = owned_assets[iter];
             quantity = owned_assets_quantity[iter];
-            asset_value += ((double)ob.total_data_list.get(asset).get(1)) * quantity;
+            asset_value += (ob.total_data_list[asset][0]) * quantity;
         }
 
         if (info.equals("worth"))
@@ -99,8 +93,8 @@ public class Logic
             {       
                 asset = owned_assets[iter];
                 quantity = owned_assets_quantity[iter];
-                curr_asset_alloc = (((double)ob.total_data_list.get(asset).get(1)) * quantity) / asset_value;
-                risk += ((double)ob.total_data_list.get(asset).get(3)) * curr_asset_alloc;
+                curr_asset_alloc = ((ob.total_data_list[asset][0]) * quantity) / asset_value;
+                risk += (ob.total_data_list[asset][2]) * curr_asset_alloc;
             }
             
             return risk;
@@ -112,8 +106,8 @@ public class Logic
             {       
                 asset = owned_assets[iter];
                 quantity = owned_assets_quantity[iter];
-                curr_asset_alloc = (((double)ob.total_data_list.get(asset).get(1)) * quantity) / asset_value;
-                returns += ((double)ob.total_data_list.get(asset).get(2)) * curr_asset_alloc;
+                curr_asset_alloc = ((ob.total_data_list[asset][0]) * quantity) / asset_value;
+                returns += (ob.total_data_list[asset][1]) * curr_asset_alloc;
             }
             
             return returns;
@@ -133,14 +127,8 @@ public class Logic
 
     public double total_assets_info(String info)
     {
-        String choices[] = {"risk","worth","return"};
 
-        if (!Arrays.asList(choices).contains(info)){
-            System.out.println(info + " Choice is not applicable");
-            return -1;
-        }
-
-        if (info.equals(choices[1]))
+        if (info.equals("worth"))
         {
             double worth = 0;
 
@@ -151,7 +139,7 @@ public class Logic
             return worth;
         }
 
-        else if (info.equals(choices[0]))
+        else if (info.equals("risk"))
         {
             double risk = 0;
             
@@ -167,7 +155,7 @@ public class Logic
             return 0;
         }
         
-        else if (info.equals(choices[2]))
+        else if (info.equals("return"))
         {
             double returns = 0;
             

@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import reader.ReadCsv;
 import logic.Logic;
-import java.util.ArrayList;
 
 interface PortfolioBackend
 {
@@ -9,8 +8,7 @@ interface PortfolioBackend
     static void main_menu()
     {   
         String TITLES[] = {
-            "Menu here", 
-            "1. Add your assets in [Equity, Gold, Real Estate, Debt]", 
+            "1. Add your assets in [Equity, Real Estate, Debt]", 
             "2. Calculate Net Worth in INR", 
             "3. Calculate Risk Profile",
             "4. Calculate Returns", 
@@ -43,31 +41,19 @@ interface PortfolioBackend
     {
         if (asset_type.equals("equity"))
         {
-            assets.all_equity_assets.print("name");
-            System.out.println("-1. Back");
+            assets.all_equity_assets.print();
         }   
         else if (asset_type.equals("debt"))
         {
-            assets.all_debt_assets.print("name");
-            System.out.println("-1. Back");
+            assets.all_debt_assets.print();
         }   
         else if (asset_type.equals("real_estate"))
         {
-            assets.all_real_estate_assets.print("name");
-            System.out.println("-1. Back");
+            assets.all_real_estate_assets.print();
         }
+        System.out.println("-1. Back");
     }
     
-    static int[] normalise_arraylist(ArrayList<Integer> array)
-    {
-        int arr[] = new int[array.size()];
-        for (int i =0; i<array.size(); i++)
-        {
-            arr[i] = array.get(i);
-        }
-        return arr;
-    }
-
     static void main_worth_risk_return_menu()
     {
         String TITLES[] = {
@@ -85,6 +71,23 @@ interface PortfolioBackend
 
     }
 
+    static int[] normalise_arraylist(int array[], int filled)
+    {
+        if (filled == 0)
+        {
+            return new int[]{};
+        }
+
+        int temp_array[] = new int[filled];
+
+        for (int i=0; i<filled; i++)
+        {
+            temp_array[i] = array[i];
+        }
+
+        return temp_array;
+    }
+
 }
 
 class set
@@ -93,14 +96,13 @@ class set
     {
         Logic assets = new Logic();
         int choice;
-        Scanner cin = new Scanner(System.in);
         Scanner random = new Scanner(System.in);
 
         while (true)
         {
             PortfolioBackend.main_menu();
             System.out.print("Enter your choice: ");
-            choice = Integer.parseInt(cin.nextLine());
+            choice = Integer.parseInt(random.nextLine());
             System.out.println("");
             if (choice == -1)
             {
@@ -110,8 +112,9 @@ class set
             {
                 while (true)
                 {
-                    ArrayList<Integer> owned_assets = new ArrayList<>(); 
-                    ArrayList<Integer> owned_assets_quantity = new ArrayList<>();
+                    int owned_assets[] = new int[10]; 
+                    int owned_assets_quantity[] = new int[10];
+                    int filled = 0;
                     PortfolioBackend.main_asset_menu();
                     System.out.print("Enter your choice: ");
                     choice = Integer.parseInt(random.nextLine());
@@ -134,13 +137,14 @@ class set
                             {
                                 System.out.println("");
                                 assets.set_assets(
-                                                PortfolioBackend.normalise_arraylist(owned_assets),
-                                                PortfolioBackend.normalise_arraylist(owned_assets_quantity),
+                                                PortfolioBackend.normalise_arraylist(owned_assets, filled),
+                                                PortfolioBackend.normalise_arraylist(owned_assets_quantity, filled),
                                                 "equity"
                                                 );
+
                                 break;
                             }
-                            else if (choice >= assets.all_equity_assets.total_data_list.size())
+                            else if (choice >= assets.all_equity_assets.total_data_list.length)
                             {
                                 System.out.println("Choice Invalid");
                                 System.out.println("");
@@ -152,8 +156,9 @@ class set
                                 System.out.print("Enter the quantity: ");
                                 quantity = Integer.parseInt(random.nextLine());
                                 System.out.println();
-                                owned_assets.add(choice);
-                                owned_assets_quantity.add(quantity);
+                                owned_assets[filled] = choice;
+                                owned_assets_quantity[filled] = quantity;
+                                filled += 1;
                             }
 
                         }
@@ -173,13 +178,13 @@ class set
                             {
                                 System.out.println("");
                                 assets.set_assets(
-                                                PortfolioBackend.normalise_arraylist(owned_assets),
-                                                PortfolioBackend.normalise_arraylist(owned_assets_quantity),
+                                                PortfolioBackend.normalise_arraylist(owned_assets, filled),
+                                                PortfolioBackend.normalise_arraylist(owned_assets_quantity, filled),
                                                 "real_estate"
                                                 );
                                 break;
                             }
-                            else if (choice >= assets.all_real_estate_assets.total_data_list.size())
+                            else if (choice >= assets.all_real_estate_assets.total_data_list.length)
                             {
                                 System.out.println("Choice Invalid");
                                 System.out.println("");
@@ -191,8 +196,9 @@ class set
                                 System.out.print("Enter the land in square metre: ");
                                 quantity = Integer.parseInt(random.nextLine());
                                 System.out.println();
-                                owned_assets.add(choice);
-                                owned_assets_quantity.add(quantity);
+                                owned_assets[filled] = choice;
+                                owned_assets_quantity[filled] = quantity;
+                                filled += 1;
                             }
 
                         }
@@ -212,13 +218,13 @@ class set
                             {
                                 System.out.println("");
                                 assets.set_assets(
-                                                PortfolioBackend.normalise_arraylist(owned_assets),
-                                                PortfolioBackend.normalise_arraylist(owned_assets_quantity),
+                                                PortfolioBackend.normalise_arraylist(owned_assets, filled),
+                                                PortfolioBackend.normalise_arraylist(owned_assets_quantity, filled),
                                                 "debt"
                                                 );
                                 break;
                             }
-                            else if (choice >= assets.all_debt_assets.total_data_list.size())
+                            else if (choice >= assets.all_debt_assets.total_data_list.length)
                             {
                                 System.out.println("Choice Invalid");
                                 System.out.println("");
@@ -230,8 +236,9 @@ class set
                                 System.out.print("Enter the quantity: ");
                                 quantity = Integer.parseInt(random.nextLine());
                                 System.out.println();
-                                owned_assets.add(choice);
-                                owned_assets_quantity.add(quantity);
+                                owned_assets[filled] = choice;
+                                owned_assets_quantity[filled] = quantity;
+                                filled += 1;
                             }
 
                         }
