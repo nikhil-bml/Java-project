@@ -1,16 +1,16 @@
-// package reader;
+package reader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-abstract class Base {
-    ArrayList<ArrayList<Object>> total_data_list;
+public class ReadCsv {
+    public ArrayList<ArrayList<Object>> total_data_list;
     int owned_equity_assets[], owned_equity_assets_quantity[];
     int rows;
     
-    Base(String csvFile)
+    public ReadCsv(String csvFile)
     {
         try {
             total_data_list = new ArrayList<>();
@@ -42,55 +42,46 @@ abstract class Base {
         }
     }
 
-    void print()
+    public void print(String option)
     {
-        System.out.println(total_data_list);
+        if (option.equals("name"))
+        {
+            for (int i =0; i<total_data_list.size(); i++)
+            {
+                System.out.print(i + ". ");
+                System.out.println(total_data_list.get(i).get(0));
+            }
+        }
+        else if (option.equals("value"))
+        {
+            for (int i =0; i<total_data_list.size(); i++)
+            {
+                System.out.println(total_data_list.get(i).get(1));
+            }
+        }
+        else if (option.equals("return"))
+        {
+            for (int i =0; i<total_data_list.size(); i++)
+            {
+                System.out.println(total_data_list.get(i).get(2));
+            }
+        }
+        else if (option.equals("all"))
+        {
+            for (int i=0; i<total_data_list.size(); i++)
+            {
+                for (int l=0 ;l< total_data_list.get(i).size(); l++)
+                {
+                    System.out.print(total_data_list.get(i).get(l));
+                    if (l != total_data_list.get(i).size() -1)
+                    {
+                        System.out.print(", ");
+                    }
+                }
+                System.out.println();
+            }
+        }
+
     }
     
-}
-
-class EquityCSV extends Base {
-    
-    EquityCSV(String csvFile) 
-    {
-        super(csvFile);
-    }
-
-    EquityCSV() 
-    {
-        super("data/equity.csv");
-    }
-
-}
-
-class DebtCSV extends Base {
-
-    DebtCSV(String csvFile) 
-    {
-        super(csvFile);
-    }
-    DebtCSV() 
-    {
-        super("data/debt.csv");
-    }
-
-}
-
-class RealEstate extends Base {
-
-    RealEstate(String csvFile) 
-    {
-        super(csvFile);
-    }
-    RealEstate() 
-    {
-        super("data/real_estate.csv");
-    }
-}
-
-class ReadCsv {
-    public static void main(String[] args) 
-    {
-        EquityCSV ob = new EquityCSV();
-    }
 }
