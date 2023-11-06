@@ -144,7 +144,7 @@ class set
                             {
                                 System.out.println("Choice Invalid");
                                 System.out.println("");
-                                continue;
+                                break;
                             }
                             else
                             {
@@ -183,7 +183,7 @@ class set
                             {
                                 System.out.println("Choice Invalid");
                                 System.out.println("");
-                                continue;
+                                break;
                             }
                             else
                             {
@@ -222,7 +222,7 @@ class set
                             {
                                 System.out.println("Choice Invalid");
                                 System.out.println("");
-                                continue;
+                                break;
                             }
                             else
                             {
