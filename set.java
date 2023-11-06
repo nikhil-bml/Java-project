@@ -368,13 +368,13 @@ class set
                     else if (choice == 3)
                     {
                         System.out.println();
-                        System.out.println("returns of Real Estate is % " + assets.get_asset_info("real_estate","return"));
+                        System.out.println("returns of Real Estate in % " + assets.get_asset_info("real_estate","return"));
                         System.out.println();
                     }
                     else if (choice == 4)
                     {
                         System.out.println();
-                        System.out.println("returns of Entire Portfolio is % " + assets.total_assets_info("return"));
+                        System.out.println("returns of Entire Portfolio in % " + assets.total_assets_info("return"));
                         System.out.println();
                     }
                 }
