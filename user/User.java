@@ -11,6 +11,21 @@ public class User
         users = new UserInfo[10];
         users_size = 0;
     }
+
+    public UserInfo get_user(String username)
+    {
+        for (int i=0; i<users_size; i++)
+        {
+            if (users[i].username.equals(username))
+            {
+                return users[i];
+            }
+        }
+
+        System.out.println("User does not exist");
+        return null;
+    }
+
     public static void registration(String username, String password)
     {
         for (int i=0; i<users_size; i++)
@@ -45,6 +60,6 @@ public class User
         }
         System.out.println("User not found, Please register first");
         return 0;
-        
+   
     }
 }
