@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import user.User;
 import reader.ReadCsv;
 import logic.Logic;
 
@@ -88,6 +89,22 @@ interface PortfolioBackend
         return temp_array;
     }
 
+    static void main_user_menu()
+    {
+        String TITLES[] = {
+            "1. Register", 
+            "2. Login",  
+            "-1. Exit"
+        };
+
+        for (String title: TITLES)
+        {
+            System.out.println(title);
+        }              
+
+    }
+
+
 }
 
 class set
@@ -95,10 +112,54 @@ class set
     public static void main(String args[])
     {
         Logic assets = new Logic();
-        int choice;
+        int choice, logged_in = 0;
         Scanner random = new Scanner(System.in);
+        User users = new User();
 
         while (true)
+        {
+            if(logged_in == 1)
+            {
+                System.out.println("Welcome to our Portfolio Management System");
+                break;
+            }
+
+            PortfolioBackend.main_user_menu();
+            System.out.print("Enter your choice: ");
+            choice = Integer.parseInt(random.nextLine());
+
+            if (choice == -1)
+            {
+                System.out.println("Good Bye");
+                break;
+            }
+
+            else if(choice == 1)
+            {
+                String username, password;
+                System.out.print("Enter your username: ");
+                username = random.nextLine();
+
+                System.out.print("Enter your password: ");
+                password = random.nextLine();
+                users.registration(username, password);
+            }
+
+            else if(choice == 2)
+            {
+                String username, password;
+                System.out.print("Enter your username: ");
+                username = random.nextLine();
+
+                System.out.print("Enter your password: ");
+                password = random.nextLine();
+                logged_in = users.login(username, password);
+            }
+
+            System.out.println();
+        }
+
+        while (logged_in == 1)
         {
             PortfolioBackend.main_menu();
             System.out.print("Enter your choice: ");
@@ -121,6 +182,7 @@ class set
 
                     if (choice == -1)
                     {
+                        System.out.println("Good Bye");
                         break;
                     }
                     else if(choice == 1)
