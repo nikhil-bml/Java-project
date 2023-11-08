@@ -8,12 +8,6 @@ public class UserInfo
     {
         this.username = username;
         this.password = password;
-        owned_assets_equity = null;
-        owned_assets_equity_quantity = null;
-        owned_assets_debt = null;
-        owned_assets_debt_quantity = null;
-        owned_assets_real_estate = null;
-        owned_assets_real_estate_quantity = null;
     }
 
     public void set_user_assets(int owned_assets[],int owned_assets_quantity[], String asset_type)
