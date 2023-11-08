@@ -121,10 +121,10 @@ class PortfolioMenu
         int choice, logged_in = 0;
         Scanner sc = new Scanner(System.in);
         User users = new User();
-        ReadUser read_file_users = new ReadUser();
-        WriteCsv write_file_users = new WriteCsv();
+        ReadUser read_filed_users = new ReadUser();
+        WriteCsv write_filed_users = new WriteCsv();
 
-        read_file_users.read_user_info(users);
+        read_filed_users.read_user_info(users);
 
         while (true)
         {
@@ -465,8 +465,8 @@ class PortfolioMenu
                         }
                         else if (choice == 5)
                         {
-                            write_file_users.write_user(current_user);
-                            write_file_users.write_user_holdings(current_user);
+                            write_filed_users.write_user(current_user);
+                            write_filed_users.write_user_holdings(current_user);
                             System.out.println("Your profile is saved you can Exit Safely");
                             System.out.println();
                         }
