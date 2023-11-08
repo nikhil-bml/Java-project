@@ -27,12 +27,12 @@ public class ReadCsv {
             while (file_read.ready()) {
                 double temporary_data_list[] = new double[3];
 
-                String temp_list[] = file_read.readLine().split(",");
-                total_data_names[name_row_ptr] = temp_list[0];
+                String temp_data_read_list[] = file_read.readLine().split(",");
+                total_data_names[name_row_ptr] = temp_data_read_list[0];
 
                 for(int i=1; i<4; i++)
                 {
-                    temporary_data_list[i - 1] = Double.parseDouble(temp_list[i]);
+                    temporary_data_list[i - 1] = Double.parseDouble(temp_data_read_list[i]);
                 }
                 
                 total_data_list[data_row_ptr] = temporary_data_list;
