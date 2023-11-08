@@ -1,3 +1,4 @@
+// This is currently in Development its features are not added to the program
 package reader;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -42,8 +43,9 @@ public class ReadCsv {
                 name_row_ptr += 1;
 
             }
-
-        } catch (Exception e){
+        } 
+        catch (Exception e)
+        {
             System.out.println("Cannot find the file specified");
         }
     }

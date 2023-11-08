@@ -93,6 +93,7 @@ interface PortfolioBackend
     static void main_user_menu()
     {
         String TITLES[] = {
+            "Main Menu",
             "1. Register", 
             "2. Login",  
             "-1. Exit"
@@ -108,7 +109,7 @@ interface PortfolioBackend
 
 }
 
-class set
+class PortfolioMenu
 {
     public static void main(String args[])
     {
@@ -157,7 +158,6 @@ class set
 
                     while (current_user != null)
                     {
-                        System.out.println(current_user.username);
                         assets.set_assets(current_user.owned_assets_equity, current_user.owned_assets_equity_quantity, "equity");    
                         assets.set_assets(current_user.owned_assets_debt, current_user.owned_assets_debt_quantity, "debt");
                         assets.set_assets(current_user.owned_assets_real_estate, current_user.owned_assets_real_estate_quantity, "real_estate");
