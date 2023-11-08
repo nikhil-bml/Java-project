@@ -3,6 +3,8 @@ import user.User;
 import reader.ReadCsv;
 import logic.Logic;
 import user.UserInfo;
+import reader.ReadUser;
+import reader.WriteCsv;
 
 interface PortfolioBackend
 {
@@ -14,6 +16,7 @@ interface PortfolioBackend
             "2. Calculate Net Worth in INR", 
             "3. Calculate Risk Profile",
             "4. Calculate Returns", 
+            "5. Save Your Information",
             "-1. Logout"
             };
 
@@ -118,6 +121,10 @@ class PortfolioMenu
         int choice, logged_in = 0;
         Scanner random = new Scanner(System.in);
         User users = new User();
+        ReadUser read_file_users = new ReadUser();
+        WriteCsv write_file_users = new WriteCsv();
+
+        read_file_users.read_user_info(users);
 
         while (true)
         {
@@ -154,7 +161,8 @@ class PortfolioMenu
                 if (logged_in == 1)
                 {
                     current_user = users.get_user(username);
-                    System.out.println("Welcome to our Portfolio Management System");            
+                    System.out.println("Welcome to our Portfolio Management System");  
+                    System.out.println();          
 
                     while (current_user != null)
                     {
@@ -454,6 +462,13 @@ class PortfolioMenu
                                 }
                             }
 
+                        }
+                        else if (choice == 5)
+                        {
+                            write_file_users.write_user(current_user);
+                            write_file_users.write_user_holdings(current_user);
+                            System.out.println("Your profile is saved you can Exit Safely");
+                            System.out.println();
                         }
 
                     }

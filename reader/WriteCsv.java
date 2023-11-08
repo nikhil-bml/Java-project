@@ -8,8 +8,16 @@ public class WriteCsv
     FileWriter fw1, fw2;
     public WriteCsv()
     {
-        System.out.println("This is not allow please use WriteCsv(String <user_location>, String <user_holdings_location>)");
-        return;
+        try
+        {
+            fw1 = new FileWriter("reader/data/users.csv", true);
+            fw2 = new FileWriter("reader/data/user_holdings.csv", true);
+        }
+        catch (Exception e)
+        {
+            System.out.println("File not Found");
+        }
+        
     }
     public WriteCsv(String location_1, String location_2)
     {
@@ -21,7 +29,6 @@ public class WriteCsv
         catch (Exception e)
         {
             System.out.println("File not Found");
-            return;
         }
     }
 

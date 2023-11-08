@@ -3,8 +3,8 @@ import user.UserInfo;
 
 public class User
 {
-    static UserInfo users[];
-    static int users_size;
+    public UserInfo users[];
+    int users_size;
 
     public User()
     {
@@ -26,7 +26,7 @@ public class User
         return null;
     }
 
-    public static void registration(String username, String password)
+    public void registration(String username, String password)
     {
         for (int i=0; i<users_size; i++)
         {
@@ -42,9 +42,8 @@ public class User
         users_size += 1;
         System.out.println(username + " Your are succesfully Registered on our System, Please Login");
 
-
     }
-    public static int login(String username, String password)
+    public int login(String username, String password)
     {
         for (int i=0; i<users_size; i++)
         {
@@ -61,5 +60,12 @@ public class User
         System.out.println("User not found, Please register first");
         return 0;
    
+    }
+
+    public void user_file_registration(String username, String password)
+    {
+        UserInfo user = new UserInfo(username, password);
+        users[users_size] = user;
+        users_size += 1;
     }
 }
