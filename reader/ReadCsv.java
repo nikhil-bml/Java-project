@@ -5,7 +5,6 @@ import java.io.FileReader;
 public class ReadCsv {
     public double total_data_list[][];
     String total_data_names[];
-    int owned_equity_assets[], owned_equity_assets_quantity[];
     int rows;
     
     public ReadCsv(String csvFile)
