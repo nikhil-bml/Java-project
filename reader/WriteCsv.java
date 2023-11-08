@@ -1,4 +1,3 @@
-// This is currently in Development its features are not added to the program
 package reader;
 import java.io.FileWriter;
 import user.UserInfo;

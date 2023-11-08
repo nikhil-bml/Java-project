@@ -1,5 +1,3 @@
-// This is currently in Development its features are not added to the program
-
 package reader;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -26,7 +24,7 @@ public class ReadUser
             System.out.println("Something Went Wrongs");
         }
     }
-    
+
     public ReadUser(String location_1, String location_2)
     {
         try
