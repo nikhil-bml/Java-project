@@ -9,6 +9,22 @@ import reader.WriteCsv;
 interface PortfolioBackend
 {
     
+    static int take_any_input(Scanner sc)
+    {       
+        try
+        {
+            int input = Integer.parseInt(sc.nextLine());
+            return input;
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println("");
+            System.out.println("Caught " + e);
+            System.out.println("Please Try again");
+            return Integer.MAX_VALUE;
+        }
+    }
+    
     static void main_menu()
     {   
         String TITLES[] = {
@@ -131,7 +147,8 @@ class PortfolioMenu
 
             PortfolioBackend.main_user_menu();
             System.out.print("Enter your choice: ");
-            choice = Integer.parseInt(sc.nextLine());
+            choice = PortfolioBackend.take_any_input(sc);
+            // choice = Integer.parseInt(sc.nextLine());
 
             if (choice == -1)
             {
@@ -172,7 +189,7 @@ class PortfolioMenu
 
                         PortfolioBackend.main_menu();
                         System.out.print("Enter your choice: ");
-                        choice = Integer.parseInt(sc.nextLine());
+                        choice = PortfolioBackend.take_any_input(sc);
                         System.out.println("");
 
                         if (choice == -1)
@@ -188,7 +205,7 @@ class PortfolioMenu
                                 int filled = 0;
                                 PortfolioBackend.main_asset_menu();
                                 System.out.print("Enter your choice: ");
-                                choice = Integer.parseInt(sc.nextLine());
+                                choice = PortfolioBackend.take_any_input(sc);
 
                                 if (choice == -1)
                                 {
@@ -203,7 +220,7 @@ class PortfolioMenu
                                     {
                                         PortfolioBackend.specific_asset_menu("equity", assets);
                                         System.out.print("Enter your choice: ");
-                                        choice = Integer.parseInt(sc.nextLine());
+                                        choice = PortfolioBackend.take_any_input(sc);
                                         
                                         if (choice == -1)
                                         {
@@ -227,7 +244,7 @@ class PortfolioMenu
                                         {
                                             int quantity; 
                                             System.out.print("Enter the quantity: ");
-                                            quantity = Integer.parseInt(sc.nextLine());
+                                            quantity = PortfolioBackend.take_any_input(sc);
                                             System.out.println();
                                             owned_assets[filled] = choice;
                                             owned_assets_quantity[filled] = quantity;
@@ -245,7 +262,7 @@ class PortfolioMenu
                                     {
                                         PortfolioBackend.specific_asset_menu("real_estate", assets);
                                         System.out.print("Enter your choice: ");
-                                        choice = Integer.parseInt(sc.nextLine());
+                                        choice = PortfolioBackend.take_any_input(sc);
                                         
                                         if (choice == -1)
                                         {
@@ -268,7 +285,7 @@ class PortfolioMenu
                                         {
                                             int quantity; 
                                             System.out.print("Enter the land in square metre: ");
-                                            quantity = Integer.parseInt(sc.nextLine());
+                                            quantity = PortfolioBackend.take_any_input(sc);
                                             System.out.println();
                                             owned_assets[filled] = choice;
                                             owned_assets_quantity[filled] = quantity;
@@ -286,7 +303,7 @@ class PortfolioMenu
                                     {
                                         PortfolioBackend.specific_asset_menu("debt", assets);
                                         System.out.print("Enter your choice: ");
-                                        choice = Integer.parseInt(sc.nextLine());
+                                        choice = PortfolioBackend.take_any_input(sc);
                                         
                                         if (choice == -1)
                                         {
@@ -310,7 +327,7 @@ class PortfolioMenu
                                         {
                                             int quantity; 
                                             System.out.print("Enter the quantity: ");
-                                            quantity = Integer.parseInt(sc.nextLine());
+                                            quantity = PortfolioBackend.take_any_input(sc);
                                             System.out.println();
                                             owned_assets[filled] = choice;
                                             owned_assets_quantity[filled] = quantity;
@@ -328,7 +345,7 @@ class PortfolioMenu
                             {
                                 PortfolioBackend.main_worth_risk_return_menu();
                                 System.out.print("Enter your choice: ");
-                                choice = Integer.parseInt(sc.nextLine());
+                                choice = PortfolioBackend.take_any_input(sc);
 
                                 if (choice == -1)
                                 {
@@ -368,7 +385,7 @@ class PortfolioMenu
                             {
                                 PortfolioBackend.main_worth_risk_return_menu();
                                 System.out.print("Enter your choice: ");
-                                choice = Integer.parseInt(sc.nextLine());
+                                choice = PortfolioBackend.take_any_input(sc);
 
                                 if (choice == -1)
                                 {
@@ -428,7 +445,7 @@ class PortfolioMenu
                             {
                                 PortfolioBackend.main_worth_risk_return_menu();
                                 System.out.print("Enter your choice: ");
-                                choice = Integer.parseInt(sc.nextLine());
+                                choice = PortfolioBackend.take_any_input(sc);
 
                                 if (choice == -1)
                                 {

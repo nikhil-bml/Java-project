@@ -28,6 +28,17 @@ public class User
 
     public void registration(String username, String password)
     {
+        if (password.length() == 0)
+        {
+            System.out.println("Password cannot be empty");
+            return;
+        }
+        if (username.length() == 0)
+        {
+            System.out.println("Username cannot be empty");
+            return;
+        }
+        
         for (int i=0; i<users_size; i++)
         {
             if (users[i].username.equals(username))
@@ -45,6 +56,17 @@ public class User
     }
     public int login(String username, String password)
     {
+        if (password.length() == 0)
+        {
+            System.out.println("Password cannot be empty");
+            return 0;
+        }
+        if (username.length() == 0)
+        {
+            System.out.println("Username cannot be empty");
+            return 0;
+        }
+
         for (int i=0; i<users_size; i++)
         {
             if (users[i].username.equals(username))
