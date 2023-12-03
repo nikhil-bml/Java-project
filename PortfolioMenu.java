@@ -177,6 +177,7 @@ class PortfolioMenu
                 if (logged_in == 1)
                 {
                     current_user = users.get_user(username);
+                    System.out.println();
                     System.out.println("Welcome to our Portfolio Management System");  
                     System.out.println();          
 
@@ -376,6 +377,12 @@ class PortfolioMenu
                                     System.out.println("worth of Entire Portfolio is INR " + assets.total_assets_info("worth"));
                                     System.out.println();
                                 }
+                                else
+                                {
+                                    System.out.println();
+                                    System.out.println("Choice Invalid");
+                                    System.out.println();
+                                }
                             }
                         }
                         else if (choice == 3)
@@ -488,11 +495,23 @@ class PortfolioMenu
                             System.out.println();
                         }
 
+                        else 
+                        {
+                            System.out.println();
+                            System.out.println("Choice Invalid, Please Try again from the options below");
+                            System.out.println();
+                        }
+
                     }
                 }
             }
+            else
+            {
+                System.out.println();
+                System.out.println("Choice Invalid, Please Try again");
+                System.out.println();
+            }
 
-        System.out.println();
         }
 
     }

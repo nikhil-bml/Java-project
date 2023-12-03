@@ -3,11 +3,12 @@ public class UserInfo
 {
     public String username, password;
     public int owned_assets_equity[], owned_assets_equity_quantity[], owned_assets_debt[], owned_assets_debt_quantity[], owned_assets_real_estate[], owned_assets_real_estate_quantity[];
-
+    public int tries;
     public UserInfo(String username, String password)
     {
         this.username = username;
         this.password = password;
+        tries = 0;
     }
 
     public void set_user_assets(int owned_assets[],int owned_assets_quantity[], String asset_type)

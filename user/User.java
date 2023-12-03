@@ -33,12 +33,30 @@ public class User
             System.out.println("Password cannot be empty");
             return;
         }
-        if (username.length() == 0)
+        else if (username.length() == 0)
         {
             System.out.println("Username cannot be empty");
             return;
         }
+
+        else if (username.length() < 5)
+        {
+            System.out.println("Username cannot be smaller than 5 words");
+            return;
+        }
         
+        else if (password.length() < 5)
+        {
+            System.out.println("Password cannot be smaller than 5 words");
+            return;
+        }
+
+        else if (username.equals(password))
+        {
+            System.out.println("Username and password cannot be same");
+            return;
+        }
+
         for (int i=0; i<users_size; i++)
         {
             if (users[i].username.equals(username))
@@ -71,11 +89,17 @@ public class User
         {
             if (users[i].username.equals(username))
             {
-                if (users[i].password.equals(password))
+                if (users[i].tries >= 3)
+                {
+                    System.out.println("You have more than 3 failed attemps, Please login later");
+                    return 0;
+                }
+                else if (users[i].password.equals(password))
                 {
                     return 1; 
                 }
                 System.out.println("Wrong password entered");
+                users[i].tries++;
                 return 0;
             }
         }
