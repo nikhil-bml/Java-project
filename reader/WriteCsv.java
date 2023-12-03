@@ -43,7 +43,7 @@ public class WriteCsv
     {
         try
         {
-            String data = user.username + ',' + user.password + '\n';
+            String data = user.username + ',' + user.password + ',' + user.wallet +'\n';
             fw1.write(data);
             fw1.flush();
         }

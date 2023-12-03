@@ -33,6 +33,7 @@ interface PortfolioBackend
             "3. Calculate Risk Profile",
             "4. Calculate Returns", 
             "5. Save Your Information",
+            "6. Wallet Operations",
             "-1. Logout"
             };
 
@@ -116,6 +117,21 @@ interface PortfolioBackend
             "1. Register", 
             "2. Login",  
             "-1. Exit"
+        };
+
+        for (String title: TITLES)
+        {
+            System.out.println(title);
+        }              
+
+    }
+
+    static void main_wallet_menu()
+    {
+        String TITLES[] = {
+            "1. Add funds to the wallet", 
+            "2. View funds in wallet",  
+            "-1. Back"
         };
 
         for (String title: TITLES)
@@ -215,7 +231,8 @@ class PortfolioMenu
                                 else if(choice == 1)
                                 {
                                     System.out.println();
-
+                                    double wallet = current_user.wallet;
+                                    double total_worth = 0;
                                     while (true)
                                     {
                                         PortfolioBackend.specific_asset_menu("equity", assets);
@@ -231,6 +248,7 @@ class PortfolioMenu
                                                             PortfolioBackend.normalise_arraylist(owned_assets_quantity, filled),
                                                             "equity"
                                                             );
+                                            current_user.wallet -= total_worth;
 
                                             break;
                                         }
@@ -245,6 +263,24 @@ class PortfolioMenu
                                             int quantity; 
                                             System.out.print("Enter the quantity: ");
                                             quantity = PortfolioBackend.take_any_input(sc);
+                                            int temp_owned_assets[] = owned_assets;
+                                            int temp_owned_assets_quantity[] = owned_assets_quantity;
+                                            int temp_filled = filled; 
+                                            temp_owned_assets[temp_filled] = choice;
+                                            temp_owned_assets_quantity[temp_filled] = quantity;
+                                            temp_filled += 1;
+                                            assets.set_assets(
+                                                PortfolioBackend.normalise_arraylist(temp_owned_assets, temp_filled),
+                                                PortfolioBackend.normalise_arraylist(temp_owned_assets_quantity, temp_filled),
+                                                "equity"
+                                            );
+
+                                            total_worth = assets.get_asset_info("equity", "worth");
+                                            if (wallet - total_worth < 0)
+                                            {
+                                                System.out.println("Low Funds, Please Add funds before adding real estate assets");
+                                                break;
+                                            }
                                             System.out.println();
                                             owned_assets[filled] = choice;
                                             owned_assets_quantity[filled] = quantity;
@@ -257,6 +293,9 @@ class PortfolioMenu
                                 else if(choice == 2)
                                 {
                                     System.out.println();
+                                    double wallet = current_user.wallet;
+                                    double total_worth = 0;
+
 
                                     while (true)
                                     {
@@ -273,6 +312,7 @@ class PortfolioMenu
                                                             PortfolioBackend.normalise_arraylist(owned_assets_quantity, filled),
                                                             "real_estate"
                                                             );
+                                            current_user.wallet -= total_worth;
                                             break;
                                         }
                                         else if (choice >= assets.all_real_estate_assets.total_data_list.length)
@@ -286,6 +326,25 @@ class PortfolioMenu
                                             int quantity; 
                                             System.out.print("Enter the land in square metre: ");
                                             quantity = PortfolioBackend.take_any_input(sc);
+                                            int temp_owned_assets[] = owned_assets;
+                                            int temp_owned_assets_quantity[] = owned_assets_quantity;
+                                            int temp_filled = filled; 
+                                            temp_owned_assets[temp_filled] = choice;
+                                            temp_owned_assets_quantity[temp_filled] = quantity;
+                                            temp_filled += 1;
+                                            assets.set_assets(
+                                                PortfolioBackend.normalise_arraylist(temp_owned_assets, temp_filled),
+                                                PortfolioBackend.normalise_arraylist(temp_owned_assets_quantity, temp_filled),
+                                                "real_estate"
+                                            );
+
+                                            total_worth = assets.get_asset_info("real_estate", "worth");
+                                            if (wallet - total_worth < 0)
+                                            {
+                                                System.out.println("Low Funds, Please Add funds before adding real estate assets");
+                                                break;
+                                            }
+
                                             System.out.println();
                                             owned_assets[filled] = choice;
                                             owned_assets_quantity[filled] = quantity;
@@ -297,6 +356,9 @@ class PortfolioMenu
 
                                 else if(choice == 3)
                                 {
+                                    double wallet = current_user.wallet;
+                                    double total_worth = 0;
+
                                     System.out.println();
 
                                     while (true)
@@ -314,6 +376,7 @@ class PortfolioMenu
                                                             PortfolioBackend.normalise_arraylist(owned_assets_quantity, filled),
                                                             "debt"
                                                             );
+                                            current_user.wallet -= total_worth;
 
                                             break;
                                         }
@@ -328,6 +391,25 @@ class PortfolioMenu
                                             int quantity; 
                                             System.out.print("Enter the quantity: ");
                                             quantity = PortfolioBackend.take_any_input(sc);
+                                            int temp_owned_assets[] = owned_assets;
+                                            int temp_owned_assets_quantity[] = owned_assets_quantity;
+                                            int temp_filled = filled; 
+                                            temp_owned_assets[temp_filled] = choice;
+                                            temp_owned_assets_quantity[temp_filled] = quantity;
+                                            temp_filled += 1;
+                                            assets.set_assets(
+                                                PortfolioBackend.normalise_arraylist(temp_owned_assets, temp_filled),
+                                                PortfolioBackend.normalise_arraylist(temp_owned_assets_quantity, temp_filled),
+                                                "debt"
+                                            );
+
+                                            total_worth = assets.get_asset_info("debt", "worth");
+                                            if (wallet - total_worth < 0)
+                                            {
+                                                System.out.println("Low Funds, Please Add funds before adding equity assets");
+                                                break;
+                                            }
+
                                             System.out.println();
                                             owned_assets[filled] = choice;
                                             owned_assets_quantity[filled] = quantity;
@@ -493,6 +575,45 @@ class PortfolioMenu
                             write_filed_users.write_user_holdings(current_user);
                             System.out.println("Your profile is saved you can Exit Safely");
                             System.out.println();
+                        }
+
+                        else if (choice == 6)
+                        {
+                            while (true)
+                            {
+                                PortfolioBackend.main_wallet_menu();
+                                System.out.print("Enter your choice: ");
+                                choice = PortfolioBackend.take_any_input(sc);
+
+                                if (choice == -1)
+                                {
+                                    System.out.println();
+                                    break;
+                                }
+                                
+                                else if (choice == 1)
+                                {
+                                    try
+                                    {
+                                        Double amount;
+                                        System.out.print("Enter the amount to load: ");
+                                        amount = Double.parseDouble(sc.nextLine());
+                                        current_user.wallet += amount;
+                                        System.out.println("Value loaded into wallet successfully");
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println("Caught: " + e);
+                                    }
+
+                                }
+                                else if (choice == 2)
+                                {
+                                    System.out.println();
+                                    System.out.println("Your Balance is " + current_user.wallet);
+                                    System.out.println();
+                                }
+                            }
                         }
 
                         else 

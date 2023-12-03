@@ -108,9 +108,9 @@ public class User
    
     }
 
-    public void user_file_registration(String username, String password)
+    public void user_file_registration(String username, String password, double wallet)
     {
-        UserInfo user = new UserInfo(username, password);
+        UserInfo user = new UserInfo(username, password, wallet);
         users[users_size] = user;
         users_size += 1;
     }

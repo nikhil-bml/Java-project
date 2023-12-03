@@ -54,6 +54,7 @@ public class ReadDB
         catch(java.sql.SQLException e)
         {
             System.out.println(e);
+            System.exit(0);
         }
     }
     public void print()

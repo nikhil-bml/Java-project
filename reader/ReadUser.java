@@ -80,7 +80,7 @@ public class ReadUser
             while(user_file.ready())
             {
                 user_info_data = user_file.readLine().split(",");
-                user_inst.user_file_registration(user_info_data[0], user_info_data[1]);
+                user_inst.user_file_registration(user_info_data[0], user_info_data[1], Double.parseDouble(user_info_data[2]));
                 filled += 1;
             }
             user_file.close();

@@ -1,13 +1,23 @@
 package user;
+import logic.Logic;
 public class UserInfo
 {
     public String username, password;
     public int owned_assets_equity[], owned_assets_equity_quantity[], owned_assets_debt[], owned_assets_debt_quantity[], owned_assets_real_estate[], owned_assets_real_estate_quantity[];
     public int tries;
+    public double wallet;
+    public UserInfo(String username, String password, double wallet)
+    {
+        this.username = username;
+        this.password = password;
+        this.wallet = wallet;
+        tries = 0;
+    }
     public UserInfo(String username, String password)
     {
         this.username = username;
         this.password = password;
+        this.wallet = 0;
         tries = 0;
     }
 
@@ -36,8 +46,16 @@ public class UserInfo
             owned_assets_real_estate = owned_assets;
             owned_assets_real_estate_quantity = owned_assets_quantity;
         }
+    }
 
-
+    public boolean wallet_status(double total_worth)
+    {
+        if (wallet - total_worth >= 0)
+        {
+            return true;
+        } 
+        System.out.println("Not Enough Funds available in the Wallet, \nPlease Load Some funds and try again");
+        return false;
     }
     
 }
