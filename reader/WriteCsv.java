@@ -1,16 +1,22 @@
 package reader;
 import java.io.FileWriter;
 import user.UserInfo;
+import user.User;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class WriteCsv
 {
     FileWriter fw1, fw2;
+    String location_1, location_2;
     public WriteCsv()
     {
         try
         {
-            fw1 = new FileWriter("reader/data/users.csv", true);
-            fw2 = new FileWriter("reader/data/user_holdings.csv", true);
+            location_1 = "reader/data/users.csv";
+            location_2 = "reader/data/user_holdings.csv";
+            fw1 = new FileWriter(location_1, true);
+            fw2 = new FileWriter(location_2, true);
         }
         catch (Exception e)
         {
@@ -22,6 +28,8 @@ public class WriteCsv
     {
         try
         {
+            this.location_1 = location_1;
+            this.location_2 = location_2;
             fw1 = new FileWriter(location_1, true);
             fw2 = new FileWriter(location_2, true);
         }
@@ -43,6 +51,123 @@ public class WriteCsv
         {
             System.out.println("Something Unexpected happened");
         }
+    }
+
+    BufferedReader get_new_bufferreader(String file_reader_type)
+    {
+        try
+        {
+            if (file_reader_type.equals("fr2"))
+            {
+                FileReader fr2_2 = new FileReader(location_2);
+                BufferedReader file_holdings_2 = new BufferedReader(fr2_2);
+                return file_holdings_2;
+            }
+            else if (file_reader_type.equals("fr1"))
+            {
+                FileReader fr1_1 = new FileReader(location_1);
+                BufferedReader file_holdings_1 = new BufferedReader(fr1_1);
+                return file_holdings_1;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Something Unexpected happened");
+        }
+        return null;
+
+    } 
+    
+    public void remove_user_info(User user_inst, String username)
+    {
+        try {
+            BufferedReader user_file_reader = get_new_bufferreader("fr1");
+            String line;
+            int rows = 0;
+            
+            while (user_file_reader.ready())
+            {
+                user_file_reader.readLine();
+                rows ++;
+            }
+
+            String user_strings[] = new String[rows];
+
+            user_file_reader = get_new_bufferreader("fr1");
+            int user_str_ptr = 0; 
+            while (user_file_reader.ready()) 
+            {
+                line = user_file_reader.readLine();
+                String[] userData = line.split(",");
+                String curr_username = userData[0];
+
+                if (!curr_username.equals(username)) {
+                    user_strings[user_str_ptr] = line + "\n";
+                    user_str_ptr ++;
+                }
+            }
+            
+            FileWriter user_file_writer = new FileWriter(this.location_1); 
+            String curr_data;
+            for (int i=0; i<user_strings.length; i++)
+            {
+                if (user_strings[i] != null)
+                {
+                    curr_data = user_strings[i];
+                    user_file_writer.write(curr_data);
+                }
+            }
+
+            user_file_reader.close();
+            user_file_writer.close();
+            
+            BufferedReader user_info_file_reader = get_new_bufferreader("fr2");
+            rows = 0;
+            
+            while (user_info_file_reader.ready())
+            {
+                user_info_file_reader.readLine();
+                rows ++;
+            }
+
+            String user_info_strings[] = new String[rows];
+
+            user_info_file_reader = get_new_bufferreader("fr2");
+            int user_info_str_ptr = 0; 
+            while (user_info_file_reader.ready()) 
+            {
+                line = user_info_file_reader.readLine();
+                String[] user_info_data = line.split(",");
+                String curr_username = user_info_data[0];
+
+                if (!curr_username.equals(username)) {
+                    user_info_strings[user_info_str_ptr] = line + "\n";
+                    user_info_str_ptr ++;
+                }
+            }
+
+            FileWriter user_info_file_writer = new FileWriter(this.location_2); 
+
+            for (int i=0; i<user_info_strings.length; i++)
+            {
+                if (user_info_strings[i] != null)
+                {
+                    curr_data = user_info_strings[i];
+                    user_info_file_writer.write(curr_data);
+                }
+            }
+
+            user_info_file_reader.close();
+            user_info_file_writer.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     public void write_user_holdings(UserInfo user)

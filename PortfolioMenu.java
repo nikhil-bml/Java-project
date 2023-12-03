@@ -148,7 +148,6 @@ class PortfolioMenu
             PortfolioBackend.main_user_menu();
             System.out.print("Enter your choice: ");
             choice = PortfolioBackend.take_any_input(sc);
-            // choice = Integer.parseInt(sc.nextLine());
 
             if (choice == -1)
             {
@@ -482,6 +481,7 @@ class PortfolioMenu
                         }
                         else if (choice == 5)
                         {
+                            write_filed_users.remove_user_info(users, current_user.username);
                             write_filed_users.write_user(current_user);
                             write_filed_users.write_user_holdings(current_user);
                             System.out.println("Your profile is saved you can Exit Safely");

@@ -1,18 +1,23 @@
 package logic;
 import reader.ReadCsv;
+import reader_db.ReadDB;
 
 public class Logic
 {   
     int owned_equity_assets[], owned_equity_assets_quantity[];
     int owned_debt_assets[], owned_debt_assets_quantity[];
     int owned_real_estate_assets[], owned_real_estate_assets_quantity[];
-    public ReadCsv all_equity_assets, all_debt_assets, all_real_estate_assets;
+    public ReadDB all_equity_assets, all_debt_assets, all_real_estate_assets;
 
     public Logic()
     {
-        all_equity_assets = new ReadCsv("reader/data/equity.csv");
-        all_debt_assets = new ReadCsv("reader/data/debt.csv");
-        all_real_estate_assets = new ReadCsv("reader/data/real_estate.csv");
+        String url = "jdbc:postgresql://localhost:5432/portfolio_management";
+        String user = "postgres";
+        String password = "123456789";
+
+        all_equity_assets = new ReadDB(url, user, password, "equity");
+        all_debt_assets = new ReadDB(url, user, password, "debt");
+        all_real_estate_assets = new ReadDB(url, user, password, "real_estate");
     }
 
     public void set_assets(int owned_assets[], int owned_assets_quantity[], String asset_type)
@@ -40,7 +45,7 @@ public class Logic
         int owned_assets[], owned_assets_quantity[];
         double asset_value = 0;
         int asset = 0, quantity = 0;
-        ReadCsv ob;
+        ReadDB ob;
 
         if (asset_type.equals("equity"))
         {
