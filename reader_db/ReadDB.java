@@ -9,21 +9,30 @@ public class ReadDB
     String url, username, password;
     public double total_data_list[][];
     String total_data_names[];
-
-    public ReadDB(String url, String username, String password, String table_name)
+    Statement cursor;
+    public ReadDB(String url, String username, String password)
     {
-        String main_query, count_query;
-        Connection connection;
-        Statement cursor;
+        Connection connection;   
         try
         {
-
             connection = DriverManager.getConnection(url, username, password);
             cursor = connection.createStatement();
-            main_query = "SELECT * FROM " + table_name;
-            count_query = "SELECT COUNT(*) FROM " + table_name;
+        }
+        catch(java.sql.SQLException e)
+        {
+            System.out.println(e);
+            System.exit(0);
+        }
+    }
+    public void read_db(String table_name)
+    {
+        String main_query, count_query;
+        main_query = "SELECT * FROM " + table_name;
+        count_query = "SELECT COUNT(*) FROM " + table_name;
 
-            int rows=0;
+        int rows=0;
+        try
+        {
             ResultSet resultObj = cursor.executeQuery(count_query);
 
             while (resultObj.next()) 
@@ -49,12 +58,10 @@ public class ReadDB
                 name_row_ptr ++;
                 data_row_ptr ++;
             }
-
         }
         catch(java.sql.SQLException e)
         {
             System.out.println(e);
-            System.exit(0);
         }
     }
     public void print()
@@ -70,16 +77,3 @@ public class ReadDB
 
 }
 
-// class temp{
-//     public static void main(String args[])
-//     {
-//         ReadDB db_obj = new ReadDB(
-//             "jdbc:postgresql://localhost:5432/portfolio_management",
-//             "postgres",
-//             "123456789",
-//             "equity"
-//             );
-//         // db_obj.load_table("equity");
-        
-//     }
-// }

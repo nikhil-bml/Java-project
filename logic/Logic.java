@@ -14,12 +14,21 @@ public class Logic
         String url = "jdbc:postgresql://localhost:5432/portfolio_management";
         String user = "postgres";
         String password = "123456789";
-
-        all_equity_assets = new ReadDB(url, user, password, "equity");
-        all_debt_assets = new ReadDB(url, user, password, "debt");
-        all_real_estate_assets = new ReadDB(url, user, password, "real_estate");
+        ReadDB read_db_equity_object = new ReadDB(url, user, password);
+        ReadDB read_db_debt_object = new ReadDB(url, user, password);
+        ReadDB read_db_real_estate_object = new ReadDB(url, user, password);
+        all_equity_assets = read_db_equity_object;
+        all_debt_assets = read_db_debt_object;
+        all_real_estate_assets = read_db_real_estate_object;
     }
 
+    public void read_database()
+    {
+        all_equity_assets.read_db("equity");
+        all_debt_assets.read_db("debt");
+        all_real_estate_assets.read_db("real_estate");
+
+    }
     public void set_assets(int owned_assets[], int owned_assets_quantity[], String asset_type)
     {
         if (asset_type.equals("equity"))

@@ -2,41 +2,30 @@ package reader;
 import java.io.FileWriter;
 import user.UserInfo;
 import user.User;
+import user.AdminInfo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class WriteCsv
 {
-    FileWriter fw1, fw2;
-    String location_1, location_2;
+    FileWriter fw1, fw2, fw3;
+    String location_1, location_2, location_3;
     public WriteCsv()
     {
         try
         {
             location_1 = "reader/data/users.csv";
             location_2 = "reader/data/user_holdings.csv";
+            location_3 = "reader/data/admins.csv";
             fw1 = new FileWriter(location_1, true);
             fw2 = new FileWriter(location_2, true);
+            fw3 = new FileWriter(location_3, true);
         }
         catch (Exception e)
         {
             System.out.println("File not Found");
         }
         
-    }
-    public WriteCsv(String location_1, String location_2)
-    {
-        try
-        {
-            this.location_1 = location_1;
-            this.location_2 = location_2;
-            fw1 = new FileWriter(location_1, true);
-            fw2 = new FileWriter(location_2, true);
-        }
-        catch (Exception e)
-        {
-            System.out.println("File not Found");
-        }
     }
 
     public void write_user(UserInfo user)
@@ -235,5 +224,19 @@ public class WriteCsv
             System.out.println("Something Unexpected happened");
         }
 
+    }
+
+    public void write_admin_info(AdminInfo admin)
+    {
+        try
+        {
+            String data = admin.username + ',' + admin.password + '\n';
+            fw3.write(data);
+            fw3.flush();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Something Unexpected happened");
+        }
     }
 }

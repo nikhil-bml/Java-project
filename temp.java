@@ -2,16 +2,28 @@ import reader.ReadUser;
 import user.User;
 import user.UserInfo;
 import reader.WriteCsv;
+import user.AdminInfo;
+import reader_db.WriteDB;
+import user.Admin;
+import reader.ReadAdmin;
+
 class temp
 {
     public static void main(String args[])
     {
-        // ReadUser all_user_obj = new ReadUser();
-        // User user_inst = new User();
-        // all_user_obj.read_user_info(user_inst);
-        // WriteCsv write_obj = new WriteCsv();
-        // write_obj.remove_user_info(user_inst, "a");
-        UserInfo curr_user = new UserInfo("abcde","mokas",20);
-        curr_user.wallet_status(10);
+        // Admin admins = new Admin();
+        // admins.registration("nikhil","tomar");
+        // AdminInfo admin = admins.get_admin("nikhil");
+        // System.out.println(admin.username);
+        // WriteCsv ob = new WriteCsv();
+        // ob.write_admin_info(admin);
+        // ReadAdmin read_filed_admins = new ReadAdmin();
+        // Admin new_admins = new Admin();
+        // read_filed_admins.read_admin_info(new_admins);
+        WriteDB write = new WriteDB(
+            "jdbc:postgresql://localhost:5432/portfolio_management",
+            "postgres",
+            "123456789"
+        );
     }
 }

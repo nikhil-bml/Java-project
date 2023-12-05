@@ -3,8 +3,14 @@ import user.User;
 import reader.ReadCsv;
 import logic.Logic;
 import user.UserInfo;
+import user.Admin;
+import user.AdminInfo;
+import reader.ReadAdmin;
 import reader.ReadUser;
 import reader.WriteCsv;
+import reader_db.WriteDB;
+import exceptions.NegativeWalletBalance;
+import exceptions.MaximumWalletBalanceExceeded;
 
 interface PortfolioBackend
 {
@@ -116,6 +122,8 @@ interface PortfolioBackend
             "Main Menu",
             "1. Register", 
             "2. Login",  
+            "3. Admin Register",
+            "4. Admin Login",
             "-1. Exit"
         };
 
@@ -140,6 +148,34 @@ interface PortfolioBackend
         }              
 
     }
+    static void main_admin_menu()
+    {
+        String TITLES[] = {
+            "1. Add New Assets[Equity, Debt, Real Estate]",
+            "2. Update Assets",
+            "4. Save your(Admin) Information",
+            "-1. Logout"
+        };
+
+        for (String title: TITLES)
+        {
+            System.out.println(title);
+        }              
+    }
+    static void admin_asset_menu()
+    {
+        String TITLES[] = {
+            "1. Add Equity Asset",
+            "2. Add Debt Asset",
+            "4. Add Real Estate Asset",
+            "-1. Logout"
+        };
+
+        for (String title: TITLES)
+        {
+            System.out.println(title);
+        }              
+    }
 
 
 }
@@ -149,17 +185,27 @@ class PortfolioMenu
     public static void main(String args[])
     {
         UserInfo current_user = null;
+        AdminInfo current_admin = null;
         Logic assets = new Logic();
         int choice, logged_in = 0;
         Scanner sc = new Scanner(System.in);
         User users = new User();
+        Admin admins = new Admin();
         ReadUser read_filed_users = new ReadUser();
         WriteCsv write_filed_users = new WriteCsv();
-
+        WriteCsv write_filed_admins = new WriteCsv();
+        ReadAdmin read_filed_admins = new ReadAdmin();
+        WriteDB write_db_object = new WriteDB(
+            "jdbc:postgresql://localhost:5432/portfolio_management",
+            "postgres",
+            "123456789"
+        );
+        read_filed_admins.read_admin_info(admins);
         read_filed_users.read_user_info(users);
 
         while (true)
         {
+            assets.read_database();
 
             PortfolioBackend.main_user_menu();
             System.out.print("Enter your choice: ");
@@ -598,12 +644,20 @@ class PortfolioMenu
                                         Double amount;
                                         System.out.print("Enter the amount to load: ");
                                         amount = Double.parseDouble(sc.nextLine());
+                                        if (amount > 1000000)
+                                        {
+                                            throw new MaximumWalletBalanceExceeded();
+                                        }
+                                        if (amount < 0)
+                                        {
+                                            throw new NegativeWalletBalance();
+                                        }
                                         current_user.wallet += amount;
                                         System.out.println("Value loaded into wallet successfully");
                                     }
                                     catch(Exception e)
                                     {
-                                        System.out.println("Caught: " + e);
+                                        System.out.println(e.getMessage());
                                     }
 
                                 }
@@ -625,6 +679,105 @@ class PortfolioMenu
 
                     }
                 }
+            }
+
+            else if(choice == 3)
+            {
+                String username, password;
+                System.out.print("Enter your username: ");
+                username = sc.nextLine();
+
+                System.out.print("Enter your password: ");
+                password = sc.nextLine();
+                admins.registration(username, password);
+
+            }
+
+            else if(choice == 4)
+            {
+                String username, password;
+                System.out.print("Enter your username: ");
+                username = sc.nextLine();
+
+                System.out.print("Enter your password: ");
+                password = sc.nextLine();
+                logged_in = admins.login(username, password);
+                if (logged_in == 1)
+                {
+                    current_admin = admins.get_admin(username);
+                    System.out.println();
+                    System.out.println("Welcome to our Admin Page");  
+                    System.out.println();
+                    while (current_admin != null)
+                    {
+                        PortfolioBackend.main_admin_menu();
+                        System.out.print("Enter your choice: ");
+                        choice = PortfolioBackend.take_any_input(sc);
+
+                        if (choice == -1)
+                        {
+                            current_admin = null;
+                        }
+                        else if(choice == 1)
+                        {
+                            while(true)
+                            {
+                                PortfolioBackend.admin_asset_menu();
+                                System.out.print("Enter your choice: ");
+                                choice = PortfolioBackend.take_any_input(sc);
+
+                                if (choice == -1)
+                                {
+                                    break;
+                                }
+
+                                else if(choice == 1)
+                                {
+                                    String name;
+                                    double price, risk, returns;
+                                    try
+                                    {
+                                        System.out.print("Enter name for new Equity asset: ");
+                                        name = sc.nextLine();
+                                        System.out.print("Enter price for new Equity asset: ");
+                                        price = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter risk for new Equity asset: ");
+                                        risk = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter returns for new Equity asset: ");
+                                        returns = Double.parseDouble(sc.nextLine());
+                                        write_db_object.add_new_entry(
+                                            "equity",
+                                            name,
+                                            price,
+                                            risk,
+                                            returns
+                                            );
+                                        System.out.println("Your new equity asset is created Successfully");
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println("Wrong input try again");
+                                    }
+                                    System.out.println();
+                                }
+                            }                            
+                        }
+                        else if(choice == 4)
+                        {
+                            // write_filed_admins.remove_admin_info(admins, current_admin.username);
+                            write_filed_admins.write_admin_info(current_admin);
+                            System.out.println("Your Admin profile is saved you can Exit Safely");
+                            System.out.println();
+                        }
+                        else
+                        {
+                            System.out.println();
+                            System.out.println("Choice Invalid, Please Try again");
+                            System.out.println();
+
+                        }
+                    }          
+                }      
             }
             else
             {
