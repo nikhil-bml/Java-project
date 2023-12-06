@@ -40,7 +40,30 @@ public class WriteDB
         }
         catch(java.sql.SQLException e)
         {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
+    }
+
+    public void delete_entry(String table_name, String name)
+    {
+        String main_query = "DELETE FROM " 
+                            + table_name 
+                            + " WHERE "
+                            + "name = "
+                            + "'" + name + "'";
+        try
+        {
+            cursor.executeUpdate(main_query);
+        }
+        catch(java.sql.SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        catch(Exception e)
+        {
+            System.out.println("Critical Error Occured");
+            System.out.println(e.getMessage());
+        }
+
     }
 }

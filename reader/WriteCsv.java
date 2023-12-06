@@ -58,6 +58,12 @@ public class WriteCsv
                 BufferedReader file_holdings_1 = new BufferedReader(fr1_1);
                 return file_holdings_1;
             }
+            else if (file_reader_type.equals("fr3"))
+            {
+                FileReader fr3_3 = new FileReader(location_3);
+                BufferedReader file_holdings_3 = new BufferedReader(fr3_3);
+                return file_holdings_3;
+            }
             else
             {
                 return null;
@@ -71,7 +77,7 @@ public class WriteCsv
 
     } 
     
-    public void remove_user_info(User user_inst, String username)
+    public void remove_user_info(String username)
     {
         try {
             BufferedReader user_file_reader = get_new_bufferreader("fr1");
@@ -224,6 +230,55 @@ public class WriteCsv
             System.out.println("Something Unexpected happened");
         }
 
+    }
+
+    public void remove_admin_info(String username)
+    {
+        try {
+            BufferedReader admin_file_reader = get_new_bufferreader("fr3");
+            String line;
+            int rows = 0;
+            
+            while (admin_file_reader.ready())
+            {
+                admin_file_reader.readLine();
+                rows ++;
+            }
+
+            String admin_strings[] = new String[rows];
+
+            admin_file_reader = get_new_bufferreader("fr3");
+            int admin_str_ptr = 0; 
+            while (admin_file_reader.ready()) 
+            {
+                line = admin_file_reader.readLine();
+                String[] adminData = line.split(",");
+                String curr_adminname = adminData[0];
+
+                if (!curr_adminname.equals(username)) {
+                    admin_strings[admin_str_ptr] = line + "\n";
+                    admin_str_ptr ++;
+                }
+            }
+            
+            FileWriter admin_file_writer = new FileWriter(this.location_3); 
+            String curr_data;
+            for (int i=0; i<admin_strings.length; i++)
+            {
+                if (admin_strings[i] != null)
+                {
+                    curr_data = admin_strings[i];
+                    admin_file_writer.write(curr_data);
+                }
+            }
+
+            admin_file_reader.close();
+            admin_file_writer.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Something Went Wrong here");
+        }
     }
 
     public void write_admin_info(AdminInfo admin)

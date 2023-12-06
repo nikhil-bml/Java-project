@@ -153,6 +153,7 @@ interface PortfolioBackend
         String TITLES[] = {
             "1. Add New Assets[Equity, Debt, Real Estate]",
             "2. Update Assets",
+            "3. Delete Assets",
             "4. Save your(Admin) Information",
             "-1. Logout"
         };
@@ -167,14 +168,29 @@ interface PortfolioBackend
         String TITLES[] = {
             "1. Add Equity Asset",
             "2. Add Debt Asset",
-            "4. Add Real Estate Asset",
-            "-1. Logout"
+            "3. Add Real Estate Asset",
+            "-1. Go Back"
         };
 
         for (String title: TITLES)
         {
             System.out.println(title);
         }              
+    }
+    static void admin_delete_menu()
+    {
+        String TITLES[] = {
+            "1. Delete Equity Asset",
+            "2. Delete Debt Asset",
+            "3. Delete Real Estate Asset",
+            "-1. Go Back"
+        };
+
+        for (String title: TITLES)
+        {
+            System.out.println(title);
+        }              
+
     }
 
 
@@ -616,7 +632,7 @@ class PortfolioMenu
                         }
                         else if (choice == 5)
                         {
-                            write_filed_users.remove_user_info(users, current_user.username);
+                            write_filed_users.remove_user_info(current_user.username);
                             write_filed_users.write_user(current_user);
                             write_filed_users.write_user_holdings(current_user);
                             System.out.println("Your profile is saved you can Exit Safely");
@@ -760,11 +776,99 @@ class PortfolioMenu
                                     }
                                     System.out.println();
                                 }
+                                else if(choice == 2)
+                                {
+                                    String name;
+                                    double price, risk, returns;
+                                    try
+                                    {
+                                        System.out.print("Enter name for new Debt asset: ");
+                                        name = sc.nextLine();
+                                        System.out.print("Enter price for new Debt asset: ");
+                                        price = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter risk for new Debt asset: ");
+                                        risk = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter returns for new Debt asset: ");
+                                        returns = Double.parseDouble(sc.nextLine());
+                                        write_db_object.add_new_entry(
+                                            "debt",
+                                            name,
+                                            price,
+                                            risk,
+                                            returns
+                                            );
+                                        System.out.println("Your new debt asset is created Successfully");
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println("Wrong input try again");
+                                    }
+                                    System.out.println();
+                                }
+                                else if(choice == 3)
+                                {
+                                    String name;
+                                    double price, risk, returns;
+                                    try
+                                    {
+                                        System.out.print("Enter name for new Real Estate asset: ");
+                                        name = sc.nextLine();
+                                        System.out.print("Enter price for new Real Estate asset: ");
+                                        price = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter risk for new Real Estate asset: ");
+                                        risk = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter returns for new Real Estate asset: ");
+                                        returns = Double.parseDouble(sc.nextLine());
+                                        write_db_object.add_new_entry(
+                                            "real_estate",
+                                            name,
+                                            price,
+                                            risk,
+                                            returns
+                                            );
+                                        System.out.println("Your new Real Estate asset is created Successfully");
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println("Wrong input try again");
+                                    }
+                                    System.out.println();
+                                }
+
                             }                            
+                        }
+                        else if(choice == 3)
+                        {
+                            while(true)
+                            {
+                                PortfolioBackend.admin_delete_menu();
+                                System.out.print("Enter your choice: ");
+                                choice = PortfolioBackend.take_any_input(sc);
+
+                                if (choice == -1)
+                                {
+                                    break;
+                                }
+                                else if (choice == 1)
+                                {
+                                    String name;
+                                    try
+                                    {
+                                        System.out.print("Enter name for equity asset to be deleted: ");
+                                        name = sc.nextLine();
+                                        write_db_object.delete_entry("equity", name);
+                                        System.out.println("Your new equity asset is Deleted Successfully");
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println("Wrong input please try again");
+                                    }
+                                }
+                            }
                         }
                         else if(choice == 4)
                         {
-                            // write_filed_admins.remove_admin_info(admins, current_admin.username);
+                            write_filed_admins.remove_admin_info(current_admin.username);
                             write_filed_admins.write_admin_info(current_admin);
                             System.out.println("Your Admin profile is saved you can Exit Safely");
                             System.out.println();

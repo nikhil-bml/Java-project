@@ -25,5 +25,7 @@ class temp
             "postgres",
             "123456789"
         );
+        write.delete_entry("eqiuty","something");
     }
 }
+
