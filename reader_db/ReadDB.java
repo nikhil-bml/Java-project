@@ -3,19 +3,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import reader.ReadCred;
 
 public class ReadDB
 {
-    String url, username, password;
     public double total_data_list[][];
     String total_data_names[];
     Statement cursor;
-    public ReadDB(String url, String username, String password)
+    public ReadDB()
     {
-        Connection connection;   
+        Connection connection;
+        ReadCred creds = new ReadCred();   
         try
         {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(creds.url, creds.username, creds.password);
             cursor = connection.createStatement();
         }
         catch(java.sql.SQLException e)

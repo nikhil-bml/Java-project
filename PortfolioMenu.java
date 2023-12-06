@@ -11,6 +11,7 @@ import reader.WriteCsv;
 import reader_db.WriteDB;
 import exceptions.NegativeWalletBalance;
 import exceptions.MaximumWalletBalanceExceeded;
+import java.util.InputMismatchException;  
 
 interface PortfolioBackend
 {
@@ -22,12 +23,17 @@ interface PortfolioBackend
             int input = Integer.parseInt(sc.nextLine());
             return input;
         }
+        catch (InputMismatchException e)
+        {
+            System.out.println("");
+            System.out.println("Caught " + e.getMessage());
+            return Integer.MAX_VALUE;
+        }
         catch (NumberFormatException e)
         {
             System.out.println("");
-            System.out.println("Caught " + e);
-            System.out.println("Please Try again");
-            return Integer.MAX_VALUE;
+            System.out.println("Input Entered is Wrong");
+            return Integer.MAX_VALUE;            
         }
     }
     
@@ -211,11 +217,7 @@ class PortfolioMenu
         WriteCsv write_filed_users = new WriteCsv();
         WriteCsv write_filed_admins = new WriteCsv();
         ReadAdmin read_filed_admins = new ReadAdmin();
-        WriteDB write_db_object = new WriteDB(
-            "jdbc:postgresql://localhost:5432/portfolio_management",
-            "postgres",
-            "123456789"
-        );
+        WriteDB write_db_object = new WriteDB();
         read_filed_admins.read_admin_info(admins);
         read_filed_users.read_user_info(users);
 
@@ -671,9 +673,17 @@ class PortfolioMenu
                                         current_user.wallet += amount;
                                         System.out.println("Value loaded into wallet successfully");
                                     }
-                                    catch(Exception e)
+                                    catch(NegativeWalletBalance e)
                                     {
-                                        System.out.println(e.getMessage());
+                                        System.out.println("Negative Wallet Balance is Not Allowed");
+                                    }
+                                    catch(MaximumWalletBalanceExceeded e)
+                                    {
+                                        System.out.println("Maximum Wallet Balance cannot exceed 1000000 INR");
+                                    }
+                                    catch(NumberFormatException e)
+                                    {
+                                        System.out.println("Please enter Numbers as Input");
                                     }
 
                                 }
@@ -751,87 +761,70 @@ class PortfolioMenu
                                 {
                                     String name;
                                     double price, risk, returns;
-                                    try
-                                    {
-                                        System.out.print("Enter name for new Equity asset: ");
-                                        name = sc.nextLine();
-                                        System.out.print("Enter price for new Equity asset: ");
-                                        price = Double.parseDouble(sc.nextLine());
-                                        System.out.print("Enter risk for new Equity asset: ");
-                                        risk = Double.parseDouble(sc.nextLine());
-                                        System.out.print("Enter returns for new Equity asset: ");
-                                        returns = Double.parseDouble(sc.nextLine());
-                                        write_db_object.add_new_entry(
-                                            "equity",
-                                            name,
-                                            price,
-                                            risk,
-                                            returns
-                                            );
-                                        System.out.println("Your new equity asset is created Successfully");
-                                    }
-                                    catch(Exception e)
-                                    {
-                                        System.out.println("Wrong input try again");
-                                    }
+                                    System.out.print("Enter name for new Equity asset: ");
+                                    name = sc.nextLine();
+                                    System.out.print("Enter price for new Equity asset: ");
+                                    price = Double.parseDouble(sc.nextLine());
+                                    System.out.print("Enter risk for new Equity asset: ");
+                                    risk = Double.parseDouble(sc.nextLine());
+                                    System.out.print("Enter returns for new Equity asset: ");
+                                    returns = Double.parseDouble(sc.nextLine());
+                                    write_db_object.add_new_entry(
+                                        "equity",
+                                        name,
+                                        price,
+                                        risk,
+                                        returns
+                                        );
+                                    System.out.println("Your new equity asset is created Successfully");
+                                    
+
                                     System.out.println();
                                 }
                                 else if(choice == 2)
                                 {
                                     String name;
                                     double price, risk, returns;
-                                    try
-                                    {
-                                        System.out.print("Enter name for new Debt asset: ");
-                                        name = sc.nextLine();
-                                        System.out.print("Enter price for new Debt asset: ");
-                                        price = Double.parseDouble(sc.nextLine());
-                                        System.out.print("Enter risk for new Debt asset: ");
-                                        risk = Double.parseDouble(sc.nextLine());
-                                        System.out.print("Enter returns for new Debt asset: ");
-                                        returns = Double.parseDouble(sc.nextLine());
-                                        write_db_object.add_new_entry(
-                                            "debt",
-                                            name,
-                                            price,
-                                            risk,
-                                            returns
-                                            );
-                                        System.out.println("Your new debt asset is created Successfully");
-                                    }
-                                    catch(Exception e)
-                                    {
-                                        System.out.println("Wrong input try again");
-                                    }
+                                    System.out.print("Enter name for new Debt asset: ");
+                                    name = sc.nextLine();
+                                    System.out.print("Enter price for new Debt asset: ");
+                                    price = Double.parseDouble(sc.nextLine());
+                                    System.out.print("Enter risk for new Debt asset: ");
+                                    risk = Double.parseDouble(sc.nextLine());
+                                    System.out.print("Enter returns for new Debt asset: ");
+                                    returns = Double.parseDouble(sc.nextLine());
+                                    write_db_object.add_new_entry(
+                                        "debt",
+                                        name,
+                                        price,
+                                        risk,
+                                        returns
+                                        );
+                                    System.out.println("Your new debt asset is created Successfully");
+                                
                                     System.out.println();
                                 }
                                 else if(choice == 3)
                                 {
                                     String name;
                                     double price, risk, returns;
-                                    try
-                                    {
-                                        System.out.print("Enter name for new Real Estate asset: ");
-                                        name = sc.nextLine();
-                                        System.out.print("Enter price for new Real Estate asset: ");
-                                        price = Double.parseDouble(sc.nextLine());
-                                        System.out.print("Enter risk for new Real Estate asset: ");
-                                        risk = Double.parseDouble(sc.nextLine());
-                                        System.out.print("Enter returns for new Real Estate asset: ");
-                                        returns = Double.parseDouble(sc.nextLine());
-                                        write_db_object.add_new_entry(
-                                            "real_estate",
-                                            name,
-                                            price,
-                                            risk,
-                                            returns
-                                            );
-                                        System.out.println("Your new Real Estate asset is created Successfully");
-                                    }
-                                    catch(Exception e)
-                                    {
-                                        System.out.println("Wrong input try again");
-                                    }
+                                    System.out.print("Enter name for new Real Estate asset: ");
+                                    name = sc.nextLine();
+                                    System.out.print("Enter price for new Real Estate asset: ");
+                                    price = Double.parseDouble(sc.nextLine());
+                                    System.out.print("Enter risk for new Real Estate asset: ");
+                                    risk = Double.parseDouble(sc.nextLine());
+                                    System.out.print("Enter returns for new Real Estate asset: ");
+                                    returns = Double.parseDouble(sc.nextLine());
+                                    write_db_object.add_new_entry(
+                                        "real_estate",
+                                        name,
+                                        price,
+                                        risk,
+                                        returns
+                                        );
+                                    System.out.println("Your new Real Estate asset is created Successfully");
+                                    
                                     System.out.println();
                                 }
 
@@ -852,17 +845,11 @@ class PortfolioMenu
                                 else if (choice == 1)
                                 {
                                     String name;
-                                    try
-                                    {
-                                        System.out.print("Enter name for equity asset to be deleted: ");
-                                        name = sc.nextLine();
-                                        write_db_object.delete_entry("equity", name);
-                                        System.out.println("Your new equity asset is Deleted Successfully");
-                                    }
-                                    catch(Exception e)
-                                    {
-                                        System.out.println("Wrong input please try again");
-                                    }
+                                    System.out.print("Enter name for equity asset to be deleted: ");
+                                    name = sc.nextLine();
+                                    write_db_object.delete_entry("equity", name);
+                                    System.out.println("Your new equity asset is Deleted Successfully");
+                                
                                 }
                             }
                         }

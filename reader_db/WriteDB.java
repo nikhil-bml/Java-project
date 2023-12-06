@@ -3,18 +3,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import reader.ReadCred;
 
 public class WriteDB
 {
-    String url, username, password;
     Statement cursor;
-    public WriteDB(String url, String username, String password)
+    public WriteDB()
     {
+        ReadCred creds = new ReadCred();
         String main_query, count_query;
         Connection connection;
         try
         {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(creds.url, creds.username, creds.password);
             cursor = connection.createStatement();
         }
         catch(java.sql.SQLException e)
@@ -57,11 +58,6 @@ public class WriteDB
         }
         catch(java.sql.SQLException e)
         {
-            System.out.println(e.getMessage());
-        }
-        catch(Exception e)
-        {
-            System.out.println("Critical Error Occured");
             System.out.println(e.getMessage());
         }
 

@@ -11,12 +11,9 @@ public class Logic
 
     public Logic()
     {
-        String url = "jdbc:postgresql://localhost:5432/portfolio_management";
-        String user = "postgres";
-        String password = "123456789";
-        ReadDB read_db_equity_object = new ReadDB(url, user, password);
-        ReadDB read_db_debt_object = new ReadDB(url, user, password);
-        ReadDB read_db_real_estate_object = new ReadDB(url, user, password);
+        ReadDB read_db_equity_object = new ReadDB();
+        ReadDB read_db_debt_object = new ReadDB();
+        ReadDB read_db_real_estate_object = new ReadDB();
         all_equity_assets = read_db_equity_object;
         all_debt_assets = read_db_debt_object;
         all_real_estate_assets = read_db_real_estate_object;

@@ -6,6 +6,7 @@ import user.AdminInfo;
 import reader_db.WriteDB;
 import user.Admin;
 import reader.ReadAdmin;
+import reader.ReadCred;
 
 class temp
 {
@@ -20,12 +21,12 @@ class temp
         // ReadAdmin read_filed_admins = new ReadAdmin();
         // Admin new_admins = new Admin();
         // read_filed_admins.read_admin_info(new_admins);
-        WriteDB write = new WriteDB(
-            "jdbc:postgresql://localhost:5432/portfolio_management",
-            "postgres",
-            "123456789"
-        );
-        write.delete_entry("eqiuty","something");
+        // WriteDB write = new WriteDB(
+        //     "jdbc:postgresql://localhost:5432/portfolio_management",
+        //     "postgres",
+        //     "123456789"
+        // );
+        // write.delete_entry("eqiuty","something");
     }
 }
 

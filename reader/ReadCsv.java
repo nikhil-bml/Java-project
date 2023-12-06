@@ -1,6 +1,7 @@
 package reader;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class ReadCsv {
     public double total_data_list[][];
@@ -42,7 +43,7 @@ public class ReadCsv {
 
             }
         } 
-        catch (Exception e)
+        catch (IOException e)
         {
             System.out.println("Cannot find the file specified");
         }
