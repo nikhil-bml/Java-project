@@ -214,9 +214,9 @@ class PortfolioMenu
         Scanner sc = new Scanner(System.in);
         User users = new User();
         Admin admins = new Admin();
-        ReadUser read_filed_users = new ReadUser();
         WriteCsv write_filed_users = new WriteCsv();
         WriteCsv write_filed_admins = new WriteCsv();
+        ReadUser read_filed_users = new ReadUser();
         ReadAdmin read_filed_admins = new ReadAdmin();
         WriteDB write_db_object = new WriteDB();
         read_filed_admins.read_admin_info(admins);
@@ -357,6 +357,11 @@ class PortfolioMenu
                                             int quantity; 
                                             System.out.print("Enter the quantity: ");
                                             quantity = PortfolioBackend.take_any_input(sc);
+                                            if (quantity <= 0)
+                                            {
+                                                System.out.println("Bad Quantity Input");
+                                                break;
+                                            }
                                             int temp_owned_assets[] = owned_assets;
                                             int temp_owned_assets_quantity[] = owned_assets_quantity;
                                             int temp_filled = filled; 
@@ -428,6 +433,11 @@ class PortfolioMenu
                                             int quantity; 
                                             System.out.print("Enter the land in square metre: ");
                                             quantity = PortfolioBackend.take_any_input(sc);
+                                            if (quantity <= 0)
+                                            {
+                                                System.out.println("Bad Quantity Input");
+                                                break;
+                                            }
                                             int temp_owned_assets[] = owned_assets;
                                             int temp_owned_assets_quantity[] = owned_assets_quantity;
                                             int temp_filled = filled; 
@@ -502,6 +512,11 @@ class PortfolioMenu
                                             int quantity; 
                                             System.out.print("Enter the quantity: ");
                                             quantity = PortfolioBackend.take_any_input(sc);
+                                            if (quantity <= 0)
+                                            {
+                                                System.out.println("Bad Quantity Input");
+                                                break;
+                                            }
                                             int temp_owned_assets[] = owned_assets;
                                             int temp_owned_assets_quantity[] = owned_assets_quantity;
                                             int temp_filled = filled; 
