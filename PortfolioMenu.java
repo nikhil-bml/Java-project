@@ -160,9 +160,8 @@ interface PortfolioBackend
     {
         String TITLES[] = {
             "1. Add New Assets[Equity, Debt, Real Estate]",
-            "2. Update Assets",
-            "3. Delete Assets",
-            "4. Save your(Admin) Information",
+            "2. Delete Assets",
+            "3. Save your(Admin) Information",
             "-1. Logout"
         };
 
@@ -1008,7 +1007,7 @@ class PortfolioMenu
 
                             }                            
                         }
-                        else if(choice == 3)
+                        else if(choice == 2)
                         {
                             tries = 0;
                             while(true)
@@ -1099,7 +1098,7 @@ class PortfolioMenu
                                 }
                             }
                         }
-                        else if(choice == 4)
+                        else if(choice == 3)
                         {
                             write_filed_admins.remove_admin_info(current_admin.username);
                             write_filed_admins.write_admin_info(current_admin);

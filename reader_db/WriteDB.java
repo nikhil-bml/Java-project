@@ -20,7 +20,7 @@ public class WriteDB
         }
         catch(java.sql.SQLException e)
         {
-            System.out.println(e);
+            System.out.println("SQL Exception occured");
             System.exit(0);
         }
     }
@@ -41,7 +41,7 @@ public class WriteDB
         }
         catch(java.sql.SQLException e)
         {
-            System.out.println(e.getMessage());
+            System.out.println("SQL Exception Occured");
         }
     }
 
@@ -58,7 +58,7 @@ public class WriteDB
         }
         catch(java.sql.SQLException e)
         {
-            System.out.println(e.getMessage());
+            System.out.println("SQL Exception Occured");
         }
 
     }
