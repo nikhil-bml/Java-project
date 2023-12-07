@@ -5,7 +5,6 @@ import user.User;
 import user.AdminInfo;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 
 public class WriteCsv
 {
@@ -22,11 +21,14 @@ public class WriteCsv
             fw2 = new FileWriter(location_2, true);
             fw3 = new FileWriter(location_3, true);
         }
-        catch (IOException e)
+        catch(java.io.FileNotFoundException e)
         {
-            System.out.println("File not Found");
+            System.out.println("File Not Found");
         }
-        
+        catch(java.io.IOException e)
+        {
+            System.out.println("IO Exception occured");
+        }        
     }
 
     public void write_user(UserInfo user)
@@ -37,9 +39,13 @@ public class WriteCsv
             fw1.write(data);
             fw1.flush();
         }
-        catch (IOException e)
+        catch(java.io.FileNotFoundException e)
         {
-            System.out.println("Something Unexpected happened");
+            System.out.println("File Not Found");
+        }
+        catch(java.io.IOException e)
+        {
+            System.out.println("IO Exception has occured");
         }
     }
 
@@ -70,7 +76,7 @@ public class WriteCsv
                 return null;
             }
         }
-        catch (IOException e)
+        catch (java.io.IOException e)
         {
             System.out.println("Something Unexpected happened");
         }
@@ -160,7 +166,7 @@ public class WriteCsv
             user_info_file_reader.close();
             user_info_file_writer.close();
 
-        } catch (IOException e) {
+        } catch (java.io.IOException e) {
             e.printStackTrace();
         }
         
@@ -226,7 +232,7 @@ public class WriteCsv
             }
 
         }
-        catch (IOException e)
+        catch (java.io.IOException e)
         {
             System.out.println("File not Found");
         }
@@ -276,7 +282,7 @@ public class WriteCsv
             admin_file_reader.close();
             admin_file_writer.close();
         }
-        catch(IOException e)
+        catch(java.io.IOException e)
         {
             System.out.println("File Not Found");
         }
@@ -290,7 +296,7 @@ public class WriteCsv
             fw3.write(data);
             fw3.flush();
         }
-        catch (IOException e)
+        catch (java.io.IOException e)
         {
             System.out.println("File Not Found");
         }

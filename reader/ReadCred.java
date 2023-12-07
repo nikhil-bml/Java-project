@@ -16,18 +16,22 @@ public class ReadCred {
             if (file_read.ready())
             {
                 credentials_list = file_read.readLine().split(",");
+                url = credentials_list[0];
+                username = credentials_list[1];
+                password = credentials_list[2];
             }
-            url = credentials_list[0];
-            username = credentials_list[1];
-            password = credentials_list[2];
         }
-        catch (IOException e)
+        catch (java.io.FileNotFoundException e)
         {
             System.out.println("Cannot find the Credentials file");
         }
         catch(NullPointerException e)
         {
             System.out.println("Please add your credentials in the credentials.csv");
+        }
+        catch(java.io.IOException e)
+        {
+            System.out.println("IO Exception has occured");
         }
     }
 

@@ -18,10 +18,14 @@ public class ReadAdmin
             location_1 = "reader/data/admins.csv";
             fr1 = new FileReader(location_1);
         }
-        catch (Exception e)
+        catch(java.io.FileNotFoundException e)
         {
-            System.out.println("Something Went Wrongs");
+            System.out.println("File Not Found");
         }
+        // catch (java.io.IOException e)
+        // {
+        //     System.out.println("IO Exception occured");
+        // }
     }
 
     

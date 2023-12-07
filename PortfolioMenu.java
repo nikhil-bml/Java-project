@@ -23,18 +23,19 @@ interface PortfolioBackend
             int input = Integer.parseInt(sc.nextLine());
             return input;
         }
-        catch (InputMismatchException e)
-        {
-            System.out.println("");
-            System.out.println("Caught " + e.getMessage());
-            return Integer.MAX_VALUE;
-        }
         catch (NumberFormatException e)
         {
             System.out.println("");
-            System.out.println("Input Entered is Wrong");
+            System.out.println("Input Entered is not a Number");
             return Integer.MAX_VALUE;            
         }
+        catch (InputMismatchException e)
+        {
+            System.out.println("");
+            System.out.println("Input does not match the defined pattern");
+            return Integer.MAX_VALUE;
+        }
+
     }
     
     static void main_menu()
@@ -220,7 +221,7 @@ class PortfolioMenu
         WriteDB write_db_object = new WriteDB();
         read_filed_admins.read_admin_info(admins);
         read_filed_users.read_user_info(users);
-
+        int tries = 0;
         while (true)
         {
             assets.read_database();
@@ -228,6 +229,12 @@ class PortfolioMenu
             PortfolioBackend.main_user_menu();
             System.out.print("Enter your choice: ");
             choice = PortfolioBackend.take_any_input(sc);
+
+            if (tries > 4)
+            {
+                System.out.println("BAD USER ALERT");
+                break;
+            }
 
             if (choice == -1)
             {
@@ -260,7 +267,7 @@ class PortfolioMenu
                     System.out.println();
                     System.out.println("Welcome to our Portfolio Management System");  
                     System.out.println();          
-
+                    tries = 0;
                     while (current_user != null)
                     {
                         assets.set_assets(current_user.owned_assets_equity, current_user.owned_assets_equity_quantity, "equity");    
@@ -272,12 +279,19 @@ class PortfolioMenu
                         choice = PortfolioBackend.take_any_input(sc);
                         System.out.println("");
 
+                        if (tries > 4)
+                        {
+                            System.out.println("BAD USER ALERT");
+                            System.out.println();
+                            System.exit(0);
+                        }
                         if (choice == -1)
                         {
                             current_user = null;
                         }
                         else if(choice == 1)
                         {
+                            tries = 0;
                             while (true)
                             {
                                 int owned_assets[] = new int[10]; 
@@ -287,6 +301,12 @@ class PortfolioMenu
                                 System.out.print("Enter your choice: ");
                                 choice = PortfolioBackend.take_any_input(sc);
 
+                                if (tries > 4)
+                                {
+                                    System.out.println("BAD USER ALERT");
+                                    System.out.println();
+                                    System.exit(0);
+                                }
                                 if (choice == -1)
                                 {
                                     System.out.println();
@@ -297,12 +317,19 @@ class PortfolioMenu
                                     System.out.println();
                                     double wallet = current_user.wallet;
                                     double total_worth = 0;
+                                    tries = 0;
                                     while (true)
                                     {
                                         PortfolioBackend.specific_asset_menu("equity", assets);
                                         System.out.print("Enter your choice: ");
                                         choice = PortfolioBackend.take_any_input(sc);
                                         
+                                        if (tries > 4)
+                                        {
+                                            System.out.println("BAD USER ALERT");
+                                            System.out.println();
+                                            System.exit(0);
+                                        }
                                         if (choice == -1)
                                         {
                                             System.out.println("");
@@ -313,14 +340,13 @@ class PortfolioMenu
                                                             "equity"
                                                             );
                                             current_user.wallet -= total_worth;
-
                                             break;
                                         }
                                         else if (choice >= assets.all_equity_assets.total_data_list.length)
                                         {
                                             System.out.println("Choice Invalid");
+                                            tries++;
                                             System.out.println("");
-                                            break;
                                         }
                                         else
                                         {
@@ -359,14 +385,20 @@ class PortfolioMenu
                                     System.out.println();
                                     double wallet = current_user.wallet;
                                     double total_worth = 0;
-
-
+                                    tries = 0;
                                     while (true)
                                     {
                                         PortfolioBackend.specific_asset_menu("real_estate", assets);
                                         System.out.print("Enter your choice: ");
                                         choice = PortfolioBackend.take_any_input(sc);
                                         
+                                        if (tries > 4)
+                                        {
+                                            System.out.println("BAD USER ALERT");
+                                            System.out.println();
+                                            System.exit(0);
+                                        }
+
                                         if (choice == -1)
                                         {
                                             System.out.println("");
@@ -382,8 +414,8 @@ class PortfolioMenu
                                         else if (choice >= assets.all_real_estate_assets.total_data_list.length)
                                         {
                                             System.out.println("Choice Invalid");
+                                            tries++;
                                             System.out.println("");
-                                            break;
                                         }
                                         else
                                         {
@@ -422,7 +454,7 @@ class PortfolioMenu
                                 {
                                     double wallet = current_user.wallet;
                                     double total_worth = 0;
-
+                                    tries = 0;
                                     System.out.println();
 
                                     while (true)
@@ -430,7 +462,14 @@ class PortfolioMenu
                                         PortfolioBackend.specific_asset_menu("debt", assets);
                                         System.out.print("Enter your choice: ");
                                         choice = PortfolioBackend.take_any_input(sc);
-                                        
+
+                                        if (tries > 4)
+                                        {
+                                            System.out.println("BAD USER ALERT");
+                                            System.out.println();
+                                            System.exit(0);
+                                        }
+
                                         if (choice == -1)
                                         {
                                             System.out.println("");
@@ -447,8 +486,8 @@ class PortfolioMenu
                                         else if (choice >= assets.all_debt_assets.total_data_list.length)
                                         {
                                             System.out.println("Choice Invalid");
+                                            tries++;
                                             System.out.println("");
-                                            break;
                                         }
                                         else
                                         {
@@ -482,16 +521,30 @@ class PortfolioMenu
 
                                     }
                                 }
+                                else
+                                {
+                                    System.out.println("Choice Invalid, Please Try again");
+                                    tries++;
+                                    System.out.println();
+                                }
 
                             }
                         }
                         else if (choice == 2)
                         {
+                            tries = 0;
                             while (true)
                             {
                                 PortfolioBackend.main_worth_risk_return_menu();
                                 System.out.print("Enter your choice: ");
                                 choice = PortfolioBackend.take_any_input(sc);
+
+                                if (tries > 4)
+                                {
+                                    System.out.println("BAD USER ALERT");
+                                    System.out.println();
+                                    System.exit(0);
+                                }
 
                                 if (choice == -1)
                                 {
@@ -527,17 +580,26 @@ class PortfolioMenu
                                 {
                                     System.out.println();
                                     System.out.println("Choice Invalid");
+                                    tries++;
                                     System.out.println();
                                 }
                             }
                         }
                         else if (choice == 3)
                         {
+                            tries = 0;
                             while (true)
                             {
                                 PortfolioBackend.main_worth_risk_return_menu();
                                 System.out.print("Enter your choice: ");
                                 choice = PortfolioBackend.take_any_input(sc);
+
+                                if (tries > 4)
+                                {
+                                    System.out.println("BAD USER ALERT");
+                                    System.out.println();
+                                    System.exit(0);
+                                }
 
                                 if (choice == -1)
                                 {
@@ -588,16 +650,29 @@ class PortfolioMenu
 
                                     System.out.println();
                                 }
+                                else
+                                {
+                                    System.out.println("Invalid Choice");
+                                    tries++;
+                                    System.out.println();
+                                }
                             }
 
                         }
                         else if (choice == 4)
                         {
+                            tries = 0;
                             while (true)
                             {
                                 PortfolioBackend.main_worth_risk_return_menu();
                                 System.out.print("Enter your choice: ");
                                 choice = PortfolioBackend.take_any_input(sc);
+                                if (tries > 4)
+                                {
+                                    System.out.println("BAD USER ALERT");
+                                    System.out.println();
+                                    System.exit(0);
+                                }
 
                                 if (choice == -1)
                                 {
@@ -629,6 +704,12 @@ class PortfolioMenu
                                     System.out.println("returns of Entire Portfolio in % " + assets.total_assets_info("return"));
                                     System.out.println();
                                 }
+                                else
+                                {
+                                    System.out.println("Invalid Choice");
+                                    tries++;
+                                    System.out.println();               
+                                }
                             }
 
                         }
@@ -643,11 +724,19 @@ class PortfolioMenu
 
                         else if (choice == 6)
                         {
+                            tries = 0;
                             while (true)
                             {
                                 PortfolioBackend.main_wallet_menu();
                                 System.out.print("Enter your choice: ");
                                 choice = PortfolioBackend.take_any_input(sc);
+
+                                if (tries > 4)
+                                {
+                                    System.out.println("BAD USER ALERT");
+                                    System.out.println();
+                                    System.exit(0);
+                                }
 
                                 if (choice == -1)
                                 {
@@ -693,12 +782,19 @@ class PortfolioMenu
                                     System.out.println("Your Balance is " + current_user.wallet);
                                     System.out.println();
                                 }
+                                else
+                                {
+                                    System.out.println("Invalid Choice");
+                                    tries++;
+                                    System.out.println();
+                                }
                             }
                         }
 
                         else 
                         {
                             System.out.println();
+                            tries++;
                             System.out.println("Choice Invalid, Please Try again from the options below");
                             System.out.println();
                         }
@@ -734,11 +830,18 @@ class PortfolioMenu
                     System.out.println();
                     System.out.println("Welcome to our Admin Page");  
                     System.out.println();
+                    tries = 0;
                     while (current_admin != null)
                     {
                         PortfolioBackend.main_admin_menu();
                         System.out.print("Enter your choice: ");
                         choice = PortfolioBackend.take_any_input(sc);
+                        if (tries > 4)
+                        {
+                            System.out.println("BAD USER ALERT");
+                            System.out.println();
+                            System.exit(0);
+                        }
 
                         if (choice == -1)
                         {
@@ -746,11 +849,18 @@ class PortfolioMenu
                         }
                         else if(choice == 1)
                         {
+                            tries = 0;
                             while(true)
                             {
                                 PortfolioBackend.admin_asset_menu();
                                 System.out.print("Enter your choice: ");
                                 choice = PortfolioBackend.take_any_input(sc);
+                                if (tries > 4)
+                                {
+                                    System.out.println("BAD USER ALERT");
+                                    System.out.println();
+                                    System.exit(0);
+                                }
 
                                 if (choice == -1)
                                 {
@@ -827,16 +937,29 @@ class PortfolioMenu
                                     
                                     System.out.println();
                                 }
+                                else
+                                {
+                                    System.out.println("Choice Invalid");
+                                    tries++;
+                                    System.out.println();
+                                }
 
                             }                            
                         }
                         else if(choice == 3)
                         {
+                            tries = 0;
                             while(true)
                             {
                                 PortfolioBackend.admin_delete_menu();
                                 System.out.print("Enter your choice: ");
                                 choice = PortfolioBackend.take_any_input(sc);
+                                if (tries > 4)
+                                {
+                                    System.out.println("BAD USER ALERT");
+                                    System.out.println();
+                                    System.exit(0);
+                                }
 
                                 if (choice == -1)
                                 {
@@ -851,6 +974,12 @@ class PortfolioMenu
                                     System.out.println("Your new equity asset is Deleted Successfully");
                                 
                                 }
+                                else
+                                {
+                                    System.out.println("Choice Invalid");
+                                    tries++;
+                                    System.out.println();            
+                                }
                             }
                         }
                         else if(choice == 4)
@@ -864,6 +993,7 @@ class PortfolioMenu
                         {
                             System.out.println();
                             System.out.println("Choice Invalid, Please Try again");
+                            tries++;
                             System.out.println();
 
                         }
@@ -875,6 +1005,7 @@ class PortfolioMenu
                 System.out.println();
                 System.out.println("Choice Invalid, Please Try again");
                 System.out.println();
+                tries++;
             }
 
         }

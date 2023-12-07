@@ -43,9 +43,13 @@ public class ReadCsv {
 
             }
         } 
-        catch (IOException e)
+        catch (java.io.FileNotFoundException e)
         {
             System.out.println("Cannot find the file specified");
+        }
+        catch (java.io.IOException e)
+        {
+            System.out.println("IO Exception has occured");
         }
     }
 

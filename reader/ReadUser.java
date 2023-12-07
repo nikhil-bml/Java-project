@@ -3,7 +3,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import user.User;
 import user.UserInfo;
-import java.io.IOException;
 public class ReadUser
 {
     int rows;
@@ -19,10 +18,11 @@ public class ReadUser
             fr1 = new FileReader(location_1);
             fr2 = new FileReader(location_2);
         }
-        catch (IOException e)
+        catch (java.io.FileNotFoundException e)
         {
             System.out.println("Default Files were not found creating...");
         }
+        
     }
 
     public ReadUser(String location_1, String location_2)
@@ -34,7 +34,7 @@ public class ReadUser
             fr1 = new FileReader(location_1);
             fr2 = new FileReader(location_2);
         }
-        catch (IOException e)
+        catch (java.io.FileNotFoundException e)
         {
             System.out.println("File not Found");
             return;
@@ -62,9 +62,9 @@ public class ReadUser
                 return null;
             }
         }
-        catch (IOException e)
+        catch (java.io.IOException e)
         {
-            System.out.println("Problem with Buffered Reader");
+            System.out.println("Problem with Buffered Reader has occured");
         }
         return null;
 
@@ -199,9 +199,13 @@ public class ReadUser
             }
             
         }
-        catch (IOException e)
+        catch (java.io.FileNotFoundException e)
         {
             System.out.println("File not found");
+        }
+        catch (java.io.IOException e)
+        {
+            System.out.println("IO Exception has occured");
         }
 
 
