@@ -12,6 +12,7 @@ import reader_db.WriteDB;
 import exceptions.NegativeWalletBalance;
 import exceptions.MaximumWalletBalanceExceeded;
 import java.util.InputMismatchException;  
+import exceptions.EmptyStringEntered;
 
 interface PortfolioBackend
 {
@@ -880,73 +881,123 @@ class PortfolioMenu
 
                                 else if(choice == 1)
                                 {
-                                    String name;
-                                    double price, risk, returns;
-                                    System.out.print("Enter name for new Equity asset: ");
-                                    name = sc.nextLine();
-                                    System.out.print("Enter price for new Equity asset: ");
-                                    price = Double.parseDouble(sc.nextLine());
-                                    System.out.print("Enter risk for new Equity asset: ");
-                                    risk = Double.parseDouble(sc.nextLine());
-                                    System.out.print("Enter returns for new Equity asset: ");
-                                    returns = Double.parseDouble(sc.nextLine());
-                                    write_db_object.add_new_entry(
-                                        "equity",
-                                        name,
-                                        price,
-                                        risk,
-                                        returns
-                                        );
-                                    System.out.println("Your new equity asset is created Successfully");
-                                    
+                                    try
+                                    {
+                                        String name;
+                                        double price, risk, returns;
+                                        System.out.print("Enter name for new Equity asset: ");
+                                        name = sc.nextLine();
+                                        if (name.length() == 0)
+                                        {
+                                            throw new EmptyStringEntered();
+                                        }
 
-                                    System.out.println();
+                                        System.out.print("Enter price for new Equity asset: ");
+                                        price = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter risk for new Equity asset: ");
+                                        risk = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter returns for new Equity asset: ");
+                                        returns = Double.parseDouble(sc.nextLine());
+                                        write_db_object.add_new_entry(
+                                            "equity",
+                                            name,
+                                            price,
+                                            risk,
+                                            returns
+                                            );
+                                        System.out.println("Your new equity asset is created Successfully");
+                                        
+                                        System.out.println();
+                                    }
+                                    catch(NumberFormatException e)
+                                    {
+                                        System.out.println("Wrong numerical value Entered, Please write correct numerical values ");
+                                    }
+                                    catch(EmptyStringEntered e)
+                                    {
+                                        System.out.println("No Name for asset added, Please name the assets");
+                                    }
                                 }
                                 else if(choice == 2)
                                 {
-                                    String name;
-                                    double price, risk, returns;
-                                    System.out.print("Enter name for new Debt asset: ");
-                                    name = sc.nextLine();
-                                    System.out.print("Enter price for new Debt asset: ");
-                                    price = Double.parseDouble(sc.nextLine());
-                                    System.out.print("Enter risk for new Debt asset: ");
-                                    risk = Double.parseDouble(sc.nextLine());
-                                    System.out.print("Enter returns for new Debt asset: ");
-                                    returns = Double.parseDouble(sc.nextLine());
-                                    write_db_object.add_new_entry(
-                                        "debt",
-                                        name,
-                                        price,
-                                        risk,
-                                        returns
-                                        );
-                                    System.out.println("Your new debt asset is created Successfully");
-                                
-                                    System.out.println();
+                                    try
+                                    {
+                                        String name;
+                                        double price, risk, returns;
+                                        System.out.print("Enter name for new Debt asset: ");
+                                        name = sc.nextLine();
+                                        if (name.length() == 0)
+                                        {
+                                            throw new EmptyStringEntered();
+                                        }
+
+                                        System.out.print("Enter price for new Debt asset: ");
+                                        price = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter risk for new Debt asset: ");
+                                        risk = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter returns for new Debt asset: ");
+                                        returns = Double.parseDouble(sc.nextLine());
+                                        write_db_object.add_new_entry(
+                                            "debt",
+                                            name,
+                                            price,
+                                            risk,
+                                            returns
+                                            );
+                                        System.out.println("Your new debt asset is created Successfully");
+                                    
+                                        System.out.println();
+                                    }
+                                    catch(NumberFormatException e)
+                                    {
+                                        System.out.println("Wrong numerical value Entered, Please write correct numerical values ");
+                                    }
+                                    catch(EmptyStringEntered e)
+                                    {
+                                        System.out.println("No Name for asset added, Please name the assets");
+                                    }
+
+
                                 }
                                 else if(choice == 3)
                                 {
-                                    String name;
-                                    double price, risk, returns;
-                                    System.out.print("Enter name for new Real Estate asset: ");
-                                    name = sc.nextLine();
-                                    System.out.print("Enter price for new Real Estate asset: ");
-                                    price = Double.parseDouble(sc.nextLine());
-                                    System.out.print("Enter risk for new Real Estate asset: ");
-                                    risk = Double.parseDouble(sc.nextLine());
-                                    System.out.print("Enter returns for new Real Estate asset: ");
-                                    returns = Double.parseDouble(sc.nextLine());
-                                    write_db_object.add_new_entry(
-                                        "real_estate",
-                                        name,
-                                        price,
-                                        risk,
-                                        returns
-                                        );
-                                    System.out.println("Your new Real Estate asset is created Successfully");
-                                    
-                                    System.out.println();
+                                    try
+                                    {
+                                        String name;
+                                        double price, risk, returns;
+                                        System.out.print("Enter name for new Real Estate asset: ");
+                                        name = sc.nextLine();
+                                        if (name.length() == 0)
+                                        {
+                                            throw new EmptyStringEntered();
+                                        }
+                                        System.out.print("Enter price for new Real Estate asset: ");
+                                        price = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter risk for new Real Estate asset: ");
+                                        risk = Double.parseDouble(sc.nextLine());
+                                        System.out.print("Enter returns for new Real Estate asset: ");
+                                        returns = Double.parseDouble(sc.nextLine());
+                                        write_db_object.add_new_entry(
+                                            "real_estate",
+                                            name,
+                                            price,
+                                            risk,
+                                            returns
+                                            );
+                                        System.out.println("Your new Real Estate asset is created Successfully");
+                                        
+                                        System.out.println();
+                                    }
+                                    catch(NumberFormatException e)
+                                    {
+                                        System.out.println("Wrong numerical value Entered, Please write correct numerical values ");
+                                    }
+                                    catch(EmptyStringEntered e)
+                                    {
+                                        System.out.println("No Name for asset added, Please name the assets");
+                                    }
+
+
                                 }
                                 else
                                 {
@@ -979,13 +1030,67 @@ class PortfolioMenu
                                 }
                                 else if (choice == 1)
                                 {
-                                    String name;
-                                    System.out.print("Enter name for equity asset to be deleted: ");
-                                    name = sc.nextLine();
-                                    write_db_object.delete_entry("equity", name);
-                                    System.out.println("Your new equity asset is Deleted Successfully");
-                                
+                                    try
+                                    {
+                                        String name;
+                                        System.out.print("Enter name for equity asset to be deleted: ");
+                                        name = sc.nextLine();
+                                        if (name.length() == 0)
+                                        {
+                                            throw new EmptyStringEntered();
+                                        }
+
+                                        write_db_object.delete_entry("equity", name);
+                                        System.out.println(name + " equity asset is Deleted Successfully");
+                                    }
+                                    catch(EmptyStringEntered e)
+                                    {
+                                        System.out.println("No Name for asset added, Please name the assets");
+                                    }
+
                                 }
+                                else if (choice == 2)
+                                {
+                                    try
+                                    {
+                                        String name;
+                                        System.out.print("Enter name for debt asset to be deleted: ");
+                                        name = sc.nextLine();
+                                        if (name.length() == 0)
+                                        {
+                                            throw new EmptyStringEntered();
+                                        }
+                                        write_db_object.delete_entry("debt", name);
+                                        System.out.println(name + " debt asset is Deleted Successfully");
+                                    }
+                                    catch(EmptyStringEntered e)
+                                    {
+                                        System.out.println("No Name for asset added, Please name the assets");
+                                    }
+
+                                }
+                                else if (choice == 3)
+                                {
+                                    try
+                                    {
+                                        String name;
+                                        System.out.print("Enter name for real estate asset to be deleted: ");
+                                        name = sc.nextLine();
+                                        if (name.length() == 0)
+                                        {
+                                            throw new EmptyStringEntered();
+                                        }
+
+                                        write_db_object.delete_entry("real_estate", name);
+                                        System.out.println(name + " real estate asset is Deleted Successfully");
+                                    }
+                                    catch(EmptyStringEntered e)
+                                    {
+                                        System.out.println("No Name for asset added, Please name the assets");
+                                    }
+
+                                }
+
                                 else
                                 {
                                     System.out.println("Choice Invalid");
