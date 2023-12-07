@@ -320,6 +320,7 @@ class PortfolioMenu
                                     double wallet = current_user.wallet;
                                     double total_worth = 0;
                                     tries = 0;
+                                    System.out.println("Wallet: " + current_user.wallet + " INR");
                                     while (true)
                                     {
                                         PortfolioBackend.specific_asset_menu("equity", assets);
@@ -389,6 +390,7 @@ class PortfolioMenu
                                     double wallet = current_user.wallet;
                                     double total_worth = 0;
                                     tries = 0;
+                                    System.out.println("Wallet: " + current_user.wallet + " INR");
                                     while (true)
                                     {
                                         PortfolioBackend.specific_asset_menu("real_estate", assets);
@@ -456,10 +458,11 @@ class PortfolioMenu
 
                                 else if(choice == 3)
                                 {
+                                    System.out.println();
                                     double wallet = current_user.wallet;
                                     double total_worth = 0;
                                     tries = 0;
-                                    System.out.println();
+                                    System.out.println("Wallet: " + current_user.wallet + " INR");
 
                                     while (true)
                                     {

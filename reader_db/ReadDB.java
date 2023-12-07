@@ -49,7 +49,7 @@ public class ReadDB
             while(resultObj.next())
             {
                 double temporary_data_list[] = new double[3];
-                total_data_names[name_row_ptr] = resultObj.getString("name");
+                total_data_names[name_row_ptr] = resultObj.getString("name") + "    " +resultObj.getString("price") + " INR/SHARE";
 
                 temporary_data_list[0] = resultObj.getDouble("price");
                 temporary_data_list[1] = resultObj.getDouble("return");
