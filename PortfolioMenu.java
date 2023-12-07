@@ -283,7 +283,8 @@ class PortfolioMenu
                         {
                             System.out.println("BAD USER ALERT");
                             System.out.println();
-                            System.exit(0);
+                            tries = 0;
+                            break;
                         }
                         if (choice == -1)
                         {
@@ -305,7 +306,8 @@ class PortfolioMenu
                                 {
                                     System.out.println("BAD USER ALERT");
                                     System.out.println();
-                                    System.exit(0);
+                                    tries = 0;
+                                    break;
                                 }
                                 if (choice == -1)
                                 {
@@ -328,7 +330,8 @@ class PortfolioMenu
                                         {
                                             System.out.println("BAD USER ALERT");
                                             System.out.println();
-                                            System.exit(0);
+                                            tries = 0;
+                                            break;
                                         }
                                         if (choice == -1)
                                         {
@@ -396,7 +399,8 @@ class PortfolioMenu
                                         {
                                             System.out.println("BAD USER ALERT");
                                             System.out.println();
-                                            System.exit(0);
+                                            tries = 0;
+                                            break;
                                         }
 
                                         if (choice == -1)
@@ -467,7 +471,8 @@ class PortfolioMenu
                                         {
                                             System.out.println("BAD USER ALERT");
                                             System.out.println();
-                                            System.exit(0);
+                                            tries = 0;
+                                            break;
                                         }
 
                                         if (choice == -1)
@@ -543,7 +548,8 @@ class PortfolioMenu
                                 {
                                     System.out.println("BAD USER ALERT");
                                     System.out.println();
-                                    System.exit(0);
+                                    tries = 0;
+                                    break;
                                 }
 
                                 if (choice == -1)
@@ -598,7 +604,8 @@ class PortfolioMenu
                                 {
                                     System.out.println("BAD USER ALERT");
                                     System.out.println();
-                                    System.exit(0);
+                                    tries = 0;
+                                    break;
                                 }
 
                                 if (choice == -1)
@@ -671,7 +678,8 @@ class PortfolioMenu
                                 {
                                     System.out.println("BAD USER ALERT");
                                     System.out.println();
-                                    System.exit(0);
+                                    tries = 0;
+                                    break;
                                 }
 
                                 if (choice == -1)
@@ -735,7 +743,8 @@ class PortfolioMenu
                                 {
                                     System.out.println("BAD USER ALERT");
                                     System.out.println();
-                                    System.exit(0);
+                                    tries = 0;
+                                    break;
                                 }
 
                                 if (choice == -1)
@@ -840,7 +849,8 @@ class PortfolioMenu
                         {
                             System.out.println("BAD USER ALERT");
                             System.out.println();
-                            System.exit(0);
+                            tries = 0;
+                            break;
                         }
 
                         if (choice == -1)
@@ -859,7 +869,8 @@ class PortfolioMenu
                                 {
                                     System.out.println("BAD USER ALERT");
                                     System.out.println();
-                                    System.exit(0);
+                                    tries = 0;
+                                    break;
                                 }
 
                                 if (choice == -1)
@@ -958,7 +969,8 @@ class PortfolioMenu
                                 {
                                     System.out.println("BAD USER ALERT");
                                     System.out.println();
-                                    System.exit(0);
+                                    tries = 0;
+                                    break;
                                 }
 
                                 if (choice == -1)
