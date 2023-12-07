@@ -377,7 +377,7 @@ class PortfolioMenu
                                             total_worth = assets.get_asset_info("equity", "worth");
                                             if (wallet - total_worth < 0)
                                             {
-                                                System.out.println("Low Funds, Please Add funds before adding real estate assets");
+                                                System.out.println("Low Funds, Please Add funds before adding equity assets");
                                                 break;
                                             }
                                             System.out.println();
@@ -532,7 +532,7 @@ class PortfolioMenu
                                             total_worth = assets.get_asset_info("debt", "worth");
                                             if (wallet - total_worth < 0)
                                             {
-                                                System.out.println("Low Funds, Please Add funds before adding equity assets");
+                                                System.out.println("Low Funds, Please Add funds before adding debt assets");
                                                 break;
                                             }
 
